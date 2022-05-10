@@ -1,13 +1,40 @@
+@import url('nunito.css');
+
+
+
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'NunitoRegular', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.text-nunito-Regular {
+  font-family: 'NunitoRegular'
+}
+
+.text-nunito-italic {
+  font-family: 'NunitoItalic'
+}
+
+.text-nunito-light {
+  font-family: 'NunitoLight'
+}
+
+.text-nunito-semiBold {
+  font-family: 'NunitoSemiBold'
+}
+
+.text-nunito-bold {
+  font-family: 'NunitoBold'
+}
+
+.text-nunito-black {
+  font-family: 'NunitoBlack'
+}
+
+.text-nunito-extraBold {
+  font-family: 'NunitoExtraBold'
+}
+
+.text-nunito-extraLight {
+  font-family: 'NunitoExtraLight'
 }
