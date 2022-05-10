@@ -1,17 +1,14 @@
 module.exports = {
-  content: [],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {},
     colors: {
-      default: '#0F172A',
       white: '#ffffff',
-      'btn-dark': '#14283F',
-      'btn-light': '#193952',
-      'blue-light': '#41BEF6',
-      'input-default': '#1E293B',
-      'grey': {
-        700: '#91A0B3'
-      }
+      primary: '#101f3c',
+      secondary: '#fa510f',
+      'primary-light': '#d2dbec',
     }
   },
   plugins: [],
