@@ -2,7 +2,7 @@ import axios from 'axios';
 import apiClient from '../../services/api';
 import React, { useState } from 'react';
 
-function Login() {
+function Login({login}) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,13 +12,17 @@ function Login() {
 
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
-            apiClient.get('http://localhost/api/login')
+            apiClient.post('http://localhost/api/login', {
+                email: email,
+                password: password
+            })
             .then(response => {
-                console.log(response)
+                if(response.status === 204){
+                    login()
+                } 
             })
         });
     }
-
 
     return (
         <div className="w-1/4 mx-auto h-screen">
