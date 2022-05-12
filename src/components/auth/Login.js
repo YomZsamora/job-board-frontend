@@ -17,7 +17,7 @@ function Login({login}) {
                 password: password
             })
             .then(response => {
-                console.log(response);
+                console.log(response.data.error);
                 if(response.status === 200){
                     login()
                 } 
@@ -28,6 +28,15 @@ function Login({login}) {
     return (
         <div className="w-1/4 mx-auto h-screen">
             <div className="py-36">
+            <div class="bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md my-2" role="alert">
+  <div class="flex">
+    <svg class="h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg>
+    <div>
+      <p class="font-bold">Our privacy policy has changed</p>
+      <p class="text-sm">Make sure you know how these changes affect you.</p>
+    </div>
+  </div>
+</div>
                 <div className="login-title text-center mb-6">
                     <h3 className="text-nunito-bold text-4xl mb-2">Member Sign In</h3>
                     <p className="text-nunito-regular text-xs"><span>Sign in with your email</span></p>
