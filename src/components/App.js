@@ -5,7 +5,12 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
-  let login = () => setLoggedIn(true);
+  
+
+  let login = () => {
+    setLoggedIn(true)
+    console.log("loggedIn");
+  };
 
   return (
     <div className="App">

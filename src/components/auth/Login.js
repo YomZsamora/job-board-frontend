@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import apiClient from '../../services/api';
 import React, { useState } from 'react';
 
@@ -17,7 +17,8 @@ function Login({login}) {
                 password: password
             })
             .then(response => {
-                if(response.status === 204){
+                console.log(response);
+                if(response.status === 200){
                     login()
                 } 
             })
