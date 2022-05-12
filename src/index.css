@@ -1,15 +1,18 @@
+/* --------
+IMPORTS
+-----------
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('nunito.css');
 
-
-
-
-body {
-  font-family: 'NunitoRegular', sans-serif;
-}
+/* ------------
+NUNITO FONTS
+---------------
+*/
 
 .text-nunito-Regular {
   font-family: 'NunitoRegular'
@@ -41,4 +44,28 @@ body {
 
 .text-nunito-extraLight {
   font-family: 'NunitoExtraLight'
+}
+
+/* ------------
+GENERAL STUFF
+---------------
+*/
+
+body {
+  font-family: 'NunitoRegular', sans-serif;
+}
+
+
+.login-title p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-title p:after, .login-title p:before {
+  content: '';
+  width: 60px;
+  height: 2px;
+  background: #fa510f;
+  margin: 0 10px;
 }
