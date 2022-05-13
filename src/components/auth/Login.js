@@ -33,6 +33,7 @@ function Login({login}) {
                     }
                     setError(data);
                 } 
+                setUserDoesntExists(true);
                 login()
             })
         });
@@ -69,7 +70,7 @@ function Login({login}) {
                         <div className="mb-4">
                             <div className="flex justify-between mb-1 text-sm">
                                 <p>Password</p>
-                                <p className="text-secondary">Forgot Password?</p>
+                                <a className="text-secondary" href="/reset_password">Forgot Password?</a>
                             </div>
                             <input 
                                 {...register("password", { required: 'You need to enter the password to log in!' })}
