@@ -8,32 +8,31 @@ import { useForm } from "react-hook-form";
 
 function Login({login}) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => authenticateUser(data);
+    const onSubmit = formData => authenticateUser(formData);
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userDoesntExists, setUserDoesntExists] = useState();
     const [error, setError] = useState({title: "", message: "" });
 
-    const authenticateUser = (data) => {
+    const authenticateUser = (formData) => {
 
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
             apiClient.post('http://localhost/api/login', {
-                email: data.email,
-                password: data.password
+                email: formData.email,
+                password: formData.password
             })
             .then(response => {
-                console.log(response.data);
-                if(response.status === 422){
+                console.log(response);
+                if(response.data.status === 422){
+                    setUserDoesntExists(true);
                     const data = {
                         title: response.data.errorTitle,
                         message: response.data.errorMessage
                     }
                     setError(data);
-                    setUserDoesntExists(true)
                 } 
-                setUserDoesntExists(false)
                 login()
             })
         });
