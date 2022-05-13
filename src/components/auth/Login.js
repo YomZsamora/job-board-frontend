@@ -32,9 +32,10 @@ function Login({login}) {
                         message: response.data.errorMessage
                     }
                     setError(data);
-                } 
-                setUserDoesntExists(true);
-                login()
+                } else {
+                    setUserDoesntExists(false);
+                    login()
+                }
             })
         });
     }
