@@ -1,9 +1,11 @@
+
 import apiClient from '../../services/api';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useForm } from "react-hook-form";
 import AlertDanger from '../UIElements/Alerts/AlertDanger';
 import AlertSuccess from '../UIElements/Alerts/AlertSuccess';
+import SecondaryPreloader from '../UIElements/preLoaders/SecondaryPreloader';
 
 function PasswordReset() {
 
@@ -13,17 +15,19 @@ function PasswordReset() {
     const [userDoesntExists, setUserDoesntExists] = useState();
     const [sendResetEmail, setSendResetEmail] = useState(); 
     const [error, setError] = useState({title: "", message: "" });
+    const [resetPreloader, setResetPreloader] = useState(false);
 
     const [email, setEmail] = useState('');
 
     const resetPassord = (formData) => {
+        setResetPreloader(true);
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
             apiClient.post('http://localhost/api/reset_password', {
                 email: formData.email
             })
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 if(response.data.status === 422){
                     setUserDoesntExists(true);
                     setSendResetEmail(false);
@@ -32,6 +36,7 @@ function PasswordReset() {
                         message: response.data.errorMessage
                     }
                     setError(data);
+                    setResetPreloader(false);
                 } else {
                     setSendResetEmail(true);
                     setUserDoesntExists(false);
@@ -40,6 +45,7 @@ function PasswordReset() {
                         message: response.data.errorMessage
                     }
                     setError(data); 
+                    setResetPreloader(false);
                 }
                 
             })
@@ -78,7 +84,9 @@ function PasswordReset() {
                                 { userDoesntExists ?  <AlertDanger title={error.title} message={error.message} /> : <p></p> }
                                 { sendResetEmail ?  <AlertSuccess title={error.title} message={error.message} /> : <p></p> }
                         </div>
-                        <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">Request a Reset Link</button>
+                        <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">
+                            { resetPreloader ? <SecondaryPreloader width={15} height={15} /> : "Request a Reset Link" }
+                            </button>
                     </form>
                     <div class='flex items-center justify-center'>
                         <a className="text-xs text-center mt-4" href="/login">Back to Login</a>

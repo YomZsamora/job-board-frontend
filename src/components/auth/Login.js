@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import AlertDanger from '../UIElements/Alerts/AlertDanger'
 import { useForm } from "react-hook-form";
+import SecondaryPreloader from '../UIElements/preLoaders/SecondaryPreloader'
 
 
 function Login({login}) {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loginPreloader, setloginPreloader] = useState(false);
     const onSubmit = formData => authenticateUser(formData);
     
     const [email, setEmail] = useState('');
@@ -16,7 +18,7 @@ function Login({login}) {
     const [error, setError] = useState({title: "", message: "" });
 
     const authenticateUser = (formData) => {
-
+        setloginPreloader(true)
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
             apiClient.post('http://localhost/api/login', {
@@ -32,9 +34,11 @@ function Login({login}) {
                         message: response.data.errorMessage
                     }
                     setError(data);
+                    setloginPreloader(false);
                 } else {
                     setUserDoesntExists(false);
-                    login()
+                    login(response.data.session_key);
+                    setloginPreloader(false);
                 }
             })
         });
@@ -85,7 +89,9 @@ function Login({login}) {
                                 onChange={e => setPassword(e.target.value)} />
                                 {errors.email && <p className="text-alert-danger-dark text-xs mt-2">You need to enter the password to log in!</p>}
                         </div>
-                        <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">Sign In</button>
+                        <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">
+                            { loginPreloader ? <SecondaryPreloader width={15} height={15} /> :  "Sign In" }
+                            </button>
                     </form>
                 </div>
             </div>
