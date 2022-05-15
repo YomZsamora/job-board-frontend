@@ -26,7 +26,7 @@ function Login({login}) {
                 password: formData.password
             })
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 if(response.data.status === 422){
                     setUserDoesntExists(true);
                     const data = {
@@ -37,7 +37,7 @@ function Login({login}) {
                     setloginPreloader(false);
                 } else {
                     setUserDoesntExists(false);
-                    login(response.data.session_key);
+                    login(response.data);
                     setloginPreloader(false);
                 }
             })

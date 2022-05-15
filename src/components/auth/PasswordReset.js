@@ -60,7 +60,7 @@ function PasswordReset() {
                     <title>Password Reset | Moringa Job-Board </title>
                 </Helmet>
                 <div className="py-24">
-                    <div class='flex items-center justify-center'>
+                    <div className='flex items-center justify-center'>
                         <img className="w-20 h-20" src="images/logo.png" alt="logo" />
                     </div>
                     <div className="login-title text-center mb-6">
@@ -88,7 +88,7 @@ function PasswordReset() {
                             { resetPreloader ? <SecondaryPreloader width={15} height={15} /> : "Request a Reset Link" }
                             </button>
                     </form>
-                    <div class='flex items-center justify-center'>
+                    <div className='flex items-center justify-center'>
                         <a className="text-xs text-center mt-4" href="/login">Back to Login</a>
                     </div>
                 </div>

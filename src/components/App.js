@@ -2,16 +2,20 @@ import React, { useState } from 'react'
 import Login from './auth/Login'
 import PasswordReset from './auth/PasswordReset'
 import Dashboard from './dashboard/Dashboard'
+import Cohorts from './cohorts/Cohorts'
 import { Navigate, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
 
+    const [user, setUser] = useState();
     const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem("sessionKey"));
     console.log("IS LOGGED IN: " + isLoggedIn);
 
-    let login = sessionKey => {
-        sessionStorage.setItem("sessionKey", sessionKey);
-        setIsLoggedIn(sessionKey)
+    let login = user => {
+        // console.log(user.user_data.email);
+        sessionStorage.setItem("sessionKey", user.session_key);
+        setIsLoggedIn(user.session_key);
+        setUser(user.user_data);
     };
     let logout = () => {
         sessionStorage.setItem("sessionKey", "");
@@ -31,7 +35,10 @@ function App() {
                             element={<PasswordReset/>} />
                         <Route 
                             path='/dashboard' 
-                            element={ isLoggedIn ? <Dashboard logout={logout} /> : <Navigate to="/login" />  } />
+                            element={ isLoggedIn ? <Dashboard user={user} logout={logout} /> : <Navigate to="/login" />  } />
+                        <Route 
+                            path='/cohorts' 
+                            element={ isLoggedIn ? <Cohorts /> : <Navigate to="/login" />  } />
                     </Routes>
                 </div>
             </Router>

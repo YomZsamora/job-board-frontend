@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NavbarDropdown from './NavbarDropdown';
 import { NavLink } from 'react-router-dom';
 
-function Navbar({logout}) {
+
+function Navbar({user, logout, showBulkUpload}) {
 
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
     let toggleProfileDropdown = () => setToggleDropdown(!toggleDropdown);
+    let bulkUpload = () => showBulkUpload()
 
     const signOut = () => {
         apiClient.get('http://localhost/sanctum/csrf-cookie')
@@ -56,7 +58,7 @@ function Navbar({logout}) {
                         <FontAwesomeIcon className="h-4 w-4" icon="fa-regular fa-square-plus" />
                     </button>
 
-                    <button type="button" className="ml-2 p-1 rounded-full text-gray-400 hover:text-secondary focus:text-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-secondary">
+                    <button onClick={bulkUpload} type="button" className="ml-2 p-1 rounded-full text-gray-400 hover:text-secondary focus:text-secondary">
                         <span className="sr-only">Bulk Upload</span>
                         <FontAwesomeIcon className="h-4 w-4" icon="upload" />
                     </button>
@@ -68,7 +70,7 @@ function Navbar({logout}) {
                             <img className="h-8 w-8 rounded-full" src="images/avatar.jpeg" alt="logo" />
                             </button>
                         </div>
-                        { toggleDropdown ? <NavbarDropdown signOut={signOut} /> : "" }          
+                        { toggleDropdown ? <NavbarDropdown user={user} signOut={signOut} /> : "" }          
                     </div>
                 </div>
             </nav>
