@@ -72,7 +72,7 @@ body {
 
 .selected {
   border-bottom: 1px solid #101f3c;
-  font-family: 'NunitoSemiBold', sans-serif;
+  font-family: 'NunitoBold', sans-serif;
 }
 
 .primary.svg-loader{
