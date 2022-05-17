@@ -68,7 +68,7 @@ function BulkUploadModal({showBulkUpload}) {
                                     <div className="mt-2 text-primary">
                                         <h3 className="text-md leading-6 text-nunito-bold" id="modal-title">How to Upload</h3>
                                         <ol className="list-decimal pl-4 mt-2 text-xs">
-                                            <li>Download a <a className="text-secondary" href="/">template here</a>.</li>
+                                            <li>Download a <a className="text-secondary" href="https://docs.google.com/spreadsheets/d/13asalRfHUTazUezfYMmqrM3-gBgEIJUdKiEfBYpPUAM/edit?usp=sharing" target="_blank" rel="noreferrer">template here</a>.</li>
                                             <li>Add your data to the template. <br></br> <span className="italic">Using excel make sure to export or save as .csv</span></li>
                                             <li>Upload below for processing.</li>
                                         </ol>
@@ -82,7 +82,13 @@ function BulkUploadModal({showBulkUpload}) {
                                                             htmlFor="file-upload"
                                                             className="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-secondary">
                                                             <span className="text-secondary">Upload filled in template here.</span>
-                                                            <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={onFileChange} accept=".csv" />
+                                                            <input 
+                                                                id="file-upload" 
+                                                                name="file-upload" 
+                                                                type="file" 
+                                                                className="sr-only" 
+                                                                onChange={onFileChange} 
+                                                                accept=".csv" />
                                                         </label>
                                                         <p className="pl-2">csv format only.</p>
                                                 </div>
