@@ -14,7 +14,7 @@ function PasswordReset() {
 
     const [userDoesntExists, setUserDoesntExists] = useState();
     const [sendResetEmail, setSendResetEmail] = useState(); 
-    const [error, setError] = useState({title: "", message: "" });
+    const [error, setError] = useState();
     const [resetPreloader, setResetPreloader] = useState(false);
 
     const [email, setEmail] = useState('');
@@ -31,20 +31,12 @@ function PasswordReset() {
                 if(response.data.status === 422){
                     setUserDoesntExists(true);
                     setSendResetEmail(false);
-                    const data = {
-                        title: response.data.errorTitle,
-                        message: response.data.errorMessage
-                    }
-                    setError(data);
+                    setError(response.data.errorMessage);
                     setResetPreloader(false);
                 } else {
                     setSendResetEmail(true);
                     setUserDoesntExists(false);
-                    const data = {
-                        title: response.data.errorTitle,
-                        message: response.data.errorMessage
-                    }
-                    setError(data); 
+                    setError(response.data.errorMessage); 
                     setResetPreloader(false);
                 }
                 
@@ -81,8 +73,8 @@ function PasswordReset() {
                                 value={email}
                                 onChange={e => setEmail(e.target.value)} />
                                 {errors.email && <p className="text-alert-danger-dark text-xs mt-2">We need to know your email address!</p>}
-                                { userDoesntExists ?  <AlertDanger title={error.title} message={error.message} /> : <p></p> }
-                                { sendResetEmail ?  <AlertSuccess title={error.title} message={error.message} /> : <p></p> }
+                                { userDoesntExists ?  <AlertDanger message={error} /> : <p></p> }
+                                { sendResetEmail ?  <AlertSuccess message={error} /> : <p></p> }
                         </div>
                         <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">
                             { resetPreloader ? <SecondaryPreloader width={15} height={15} /> : "Request a Reset Link" }

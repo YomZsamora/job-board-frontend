@@ -15,7 +15,7 @@ function Login({login}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userDoesntExists, setUserDoesntExists] = useState();
-    const [error, setError] = useState({title: "", message: "" });
+    const [error, setError] = useState();
 
     const authenticateUser = (formData) => {
         setloginPreloader(true)
@@ -29,11 +29,7 @@ function Login({login}) {
                 // console.log(response);
                 if(response.data.status === 422){
                     setUserDoesntExists(true);
-                    const data = {
-                        title: response.data.errorTitle,
-                        message: response.data.errorMessage
-                    }
-                    setError(data);
+                    setError(response.data.errorMessage);
                     setloginPreloader(false);
                 } else {
                     setUserDoesntExists(false);
@@ -52,7 +48,8 @@ function Login({login}) {
                     <title>Login | Moringa Job-Board </title>
                 </Helmet>
                 <div className="py-24">
-                    { userDoesntExists ?  <AlertDanger title={error.title} message={error.message} /> : <p></p> }
+                    {/* <AlertDanger message={error} /> */}
+                    { userDoesntExists ?  <AlertDanger message={error} /> : <p></p> }
                     <div className="login-title text-center mb-6">
                         <h3 className="text-nunito-bold text-4xl mb-2">Member Sign In</h3>
                         <p className="text-nunito-regular text-xs"><span>Sign in with your email</span></p>

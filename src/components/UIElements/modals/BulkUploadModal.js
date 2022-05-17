@@ -9,7 +9,7 @@ import AlertDanger from '../Alerts/AlertDanger';
 function BulkUploadModal({showBulkUpload}) {
 
     const [selectedFile,  setSelectedFile] = useState("");
-    const [uploadResponse, setUploadResponse] = useState({title: "", message: "" });
+    const [uploadResponse, setUploadResponse] = useState();
     const [uploadPreloader, setUploadPreloader] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
     const [uploadFail, setUploadFail] = useState(false);
@@ -26,25 +26,17 @@ function BulkUploadModal({showBulkUpload}) {
 
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
-            apiClient.post('http://localhost/api/upload_file', data)
+            apiClient.post('http://localhost/api/student_bulk_upload', data)
             .then(response => {
                 if(response.data.status === 200) {
                     console.log(response);
-                    const data = {
-                        title: response.data.title,
-                        message: response.data.message
-                    }
-                    setUploadResponse(data)
+                    setUploadResponse(response.data.message)
                     setUploadFail(false);
                     setUploadSuccess(!uploadSuccess)
                     setUploadPreloader(false);
                 } else {
                     console.log(response);
-                    const data = {
-                        title: response.data.title,
-                        message: response.data.errors[2]
-                    }
-                    setUploadResponse(data)
+                    setUploadResponse(response.data.errors[2])
                     setUploadFail(true)
                     setUploadSuccess(false)
                     setUploadPreloader(false);
@@ -80,8 +72,8 @@ function BulkUploadModal({showBulkUpload}) {
                                             <li>Add your data to the template. <br></br> <span className="italic">Using excel make sure to export or save as .csv</span></li>
                                             <li>Upload below for processing.</li>
                                         </ol>
-                                        { uploadSuccess ? <AlertSuccess title={uploadResponse.title} message={uploadResponse.message} /> : "" }
-                                        { uploadFail ? <AlertDanger title={uploadResponse.title} message={uploadResponse.message} /> : "" }
+                                        { uploadSuccess ? <AlertSuccess message={uploadResponse} /> : "" }
+                                        { uploadFail ? <AlertDanger message={uploadResponse} /> : "" }
                                         <div className="mt-4 flex justify-center px-6 pt-5 pb-6 border-2 border-primary-light border-dashed bg-gray w-full">
                                             <div className="space-y-1 text-center">
                                                 { uploadPreloader ? <PrimaryPreloader width={45} height={45} /> : <FontAwesomeIcon className="h-10 w-10 text-secondary" icon="upload" /> }
