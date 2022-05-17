@@ -26,7 +26,7 @@ function BulkUploadModal({showBulkUpload}) {
 
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
-            apiClient.post('http://localhost/api/upload_file', data)
+            apiClient.post('http://localhost/api/student_bulk_upload', data)
             .then(response => {
                 if(response.data.status === 200) {
                     console.log(response);
