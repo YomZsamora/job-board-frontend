@@ -48,7 +48,7 @@ function BulkUploadModal({showBulkUpload}) {
                     }
                     setUploadResponse(res)
                     setcohortDoesntExist(true)
-                    setUploadSuccess(false)
+                    setUploadSuccess(false);
                     setUploadPreloader(false);
                 } else {
                     // Default errors with - Duplicates
