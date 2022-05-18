@@ -9,9 +9,9 @@ import SecondaryPreloader from '../UIElements/preLoaders/SecondaryPreloader'
 
 function Login({login}) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [loginPreloader, setloginPreloader] = useState(false);
     const onSubmit = formData => authenticateUser(formData);
     
+    const [loginPreloader, setloginPreloader] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userDoesntExists, setUserDoesntExists] = useState();
@@ -84,7 +84,7 @@ function Login({login}) {
                                 name="password"
                                 value={password}
                                 onChange={e => setPassword(e.target.value)} />
-                                {errors.email && <p className="text-alert-danger-dark text-xs mt-2">You need to enter the password to log in!</p>}
+                                {errors.password && <p className="text-alert-danger-dark text-xs mt-2">You need to enter the password to log in!</p>}
                         </div>
                         <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">
                             { loginPreloader ? <SecondaryPreloader width={15} height={15} /> :  "Sign In" }

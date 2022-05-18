@@ -5,17 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PrimaryPreloader from '../preLoaders/PrimaryPreloader'
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertDanger from '../Alerts/AlertDanger';
+import AlertDangerSec from '../Alerts/AlertDangerSec';
 
 function BulkUploadModal({showBulkUpload}) {
 
     const [selectedFile,  setSelectedFile] = useState("");
     const [uploadResponse, setUploadResponse] = useState();
+    const [cohortDoesntExist, setcohortDoesntExist] = useState(false);
     const [uploadPreloader, setUploadPreloader] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
     const [uploadFail, setUploadFail] = useState(false);
 
     let cancelUpload = () => showBulkUpload();    
     let onFileChange = event => setSelectedFile(event.target.files[0]);
+    let dismissAlert = () => setcohortDoesntExist(false);
      
 
     const uploadFile = e => {
@@ -29,14 +32,28 @@ function BulkUploadModal({showBulkUpload}) {
             apiClient.post('http://localhost/api/student_bulk_upload', data)
             .then(response => {
                 if(response.data.status === 200) {
+                    // Successful upload
                     console.log(response);
                     setUploadResponse(response.data.message)
                     setUploadFail(false);
-                    setUploadSuccess(!uploadSuccess)
+                    setUploadSuccess(true)
+                    setUploadPreloader(false);
+                } else if(response.data.status === 422){
+                    // Failed to find cohort
+                    console.log(response);
+                    const res = {
+                        title: response.data.title,
+                        message: response.data.message,
+                        buttonText: response.data.buttonText
+                    }
+                    setUploadResponse(res)
+                    setcohortDoesntExist(true)
+                    setUploadSuccess(false)
                     setUploadPreloader(false);
                 } else {
+                    // Default errors with - Duplicates
                     console.log(response);
-                    setUploadResponse(response.data.errors[2])
+                    setUploadResponse(response.data.message)
                     setUploadFail(true)
                     setUploadSuccess(false)
                     setUploadPreloader(false);
@@ -50,7 +67,7 @@ function BulkUploadModal({showBulkUpload}) {
     }
 
     return (
-        <div id="top-right-modal" data-modal-placement="top-right" tabindex="-1" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
+        <div id="top-right-modal" data-modal-placement="top-right" tabIndex="-1" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
             <div className="fixed inset-0 bg-primary-light bg-opacity-10 transition-opacity"></div>
             <div className="overflow-y-auto mr-4 w-1/3">
                 <div class="relative w-full max-w-2xl h-full md:h-auto overflow-hidden shadow-xl transform transition-all sm:my-4 sm:max-w-lg sm:w-full">
@@ -72,6 +89,8 @@ function BulkUploadModal({showBulkUpload}) {
                                             <li>Add your data to the template. <br></br> <span className="italic">Using excel make sure to export or save as .csv</span></li>
                                             <li>Upload below for processing.</li>
                                         </ol>
+                                        {/* <AlertDangerSec /> */}
+                                        { cohortDoesntExist ?  <AlertDangerSec title={uploadResponse.title} message={uploadResponse.message} buttonText={uploadResponse.buttonText} dismiss={dismissAlert} /> : "" }
                                         { uploadSuccess ? <AlertSuccess message={uploadResponse} /> : "" }
                                         { uploadFail ? <AlertDanger message={uploadResponse} /> : "" }
                                         <div className="mt-4 flex justify-center px-6 pt-5 pb-6 border-2 border-primary-light border-dashed bg-gray w-full">
