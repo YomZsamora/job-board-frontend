@@ -36,6 +36,7 @@ function BulkUploadModal({showBulkUpload}) {
                     console.log(response);
                     setUploadResponse(response.data.message)
                     setUploadFail(false);
+                    setcohortDoesntExist(false);
                     setUploadSuccess(true)
                     setUploadPreloader(false);
                 } else if(response.data.status === 422){
@@ -47,7 +48,7 @@ function BulkUploadModal({showBulkUpload}) {
                         buttonText: response.data.buttonText
                     }
                     setUploadResponse(res)
-                    setcohortDoesntExist(true)
+                    setcohortDoesntExist(true);
                     setUploadSuccess(false);
                     setUploadPreloader(false);
                 } else {
