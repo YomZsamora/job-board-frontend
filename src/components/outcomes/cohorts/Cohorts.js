@@ -2,7 +2,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import CohortsList from './CohortsList';
-// Import NavBar from '../navbar/Navbar.js'
 
 function Cohorts() {
     return (
