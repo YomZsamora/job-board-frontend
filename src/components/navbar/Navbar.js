@@ -27,7 +27,7 @@ function Navbar({user, logout, showBulkUpload}) {
     
     return (
         <div>        
-            <nav className="flex items-center justify-between shadow text-primary relative px-4">
+            <nav className="flex items-center justify-between text-primary relative px-4">
                 <div className="flex items-center">
                     <FontAwesomeIcon className="h-4 w-4 ml-4" icon="magnifying-glass" />
                 </div>
@@ -69,10 +69,6 @@ function Navbar({user, logout, showBulkUpload}) {
                             <button onClick={toggleProfileDropdown} type="button" className="flex text-sm rounded-full items-center">
                             <span className="sr-only">Open user menu</span>
                             <img className="h-8 w-8 rounded-full" src="/images/avatar.jpeg" alt="logo" />
-                            <span className="flex-grow flex flex-col pl-2 text-left leading-none">
-                                <span className="text-xs text-nunito-semiBold">Samora Yommie</span>
-                                <span className="text-[11px] text-nunito-light">samora.yommie@moringaschool.com</span>
-                            </span>
                             </button>
                         </div>
                         { toggleDropdown ? <NavbarDropdown user={user} signOut={signOut} /> : "" }          

@@ -1,6 +1,7 @@
 
-import React, { useState }from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // Import NavBar from '../navbar/Navbar.js'
 
 function Cohorts() {
@@ -10,29 +11,31 @@ function Cohorts() {
                 <title>Cohorts | Moringa Job-Board </title>
             </Helmet>
 
-            <div id="top-right-modal" data-modal-placement="top-right" tabindex="-1" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
-                <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                    
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 p-6">
-                        
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 className="text-xl leading-6 text-nunito-bold text-secondary" id="modal-title">Add New Employer</h3>
-                            <button type="button" class="text-primary hover:text-alert-danger-dark rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
-                                {/* <FontAwesomeIcon icon="fa-solid fa-xmark" /> */}
-                            </button>
-                        </div>
-                        
-                        <div className="mb-4">
-                            <label className="block text-sm mb-1">Company Name</label>
-                            <input 
-                                className="w-96 text-xs text-primary ring-2 ring-primary-light py-2 px-2 text-nunito-light focus:outline-none focus:ring-2 focus:ring-secondary" 
-                                type="text" 
-                                autoComplete="off" 
-                                placeholder="Enter company's name" 
-                                id="password"  
-                                name="password" />
+            <div>
+                <div className="flex flex-wrap -m-4">
+                    <div className="sm:w-1/4 md:w-1/3 p-4"></div>
+                    <div className="sm:w-1/4 md:w-1/3 p-4">
+                        {/* CohortList Component Here */}
+                        <div>
+                            <div className="">
+                                <div className="hover:bg-primary/5 px-4 py-2 cursor-pointer">
+                                    <div className="flex justify-between items-center">
+                                        <p className="text-primary text-nunito-semiBold text-sm">MC47/48 <span class="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold mr-2 px-1.5 py-0.5 rounded">Legacy</span></p>
+                                        <span className="text-[10px] text-nunito-light text-primary/70">23rd Mar 2022 (4 Months Ago)</span>
+                                    </div>
+                                    <div className="flex justify-between mb-1 items-end">
+                                        <span className="text-primary text-xs">46 Graduates</span>
+                                        <span className="text-secondary  text-[10px]">45%</span>
+                                    </div>
+                                    <div className="w-full bg-secondary/50 rounded-full h-1 dark:bg-gray-700">
+                                        <div className="bg-secondary h-1 rounded-full" style={{width: 45 + '%'}}></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div className="sm:w-1/4 md:w-1/3 p-4"></div>
+                    <div className="sm:w-1/4 md:w-1/3 p-4"></div>
                 </div>
             </div>
             
