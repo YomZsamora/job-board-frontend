@@ -37,8 +37,8 @@ function BulkUploadModal({showBulkUpload}) {
                     setUploadResponse(response.data.message)
                     setUploadFail(false);
                     setcohortDoesntExist(false);
-                    setUploadSuccess(true)
                     setUploadPreloader(false);
+                    setUploadSuccess(true)
                 } else if(response.data.status === 422){
                     // Failed to find cohort
                     console.log(response);
@@ -50,6 +50,7 @@ function BulkUploadModal({showBulkUpload}) {
                     setUploadResponse(res)
                     setcohortDoesntExist(true);
                     setUploadSuccess(false);
+                    setUploadFail(false);
                     setUploadPreloader(false);
                 } else {
                     // Default errors with - Duplicates
@@ -58,6 +59,7 @@ function BulkUploadModal({showBulkUpload}) {
                     setUploadFail(true)
                     setUploadSuccess(false)
                     setUploadPreloader(false);
+                    setcohortDoesntExist(false);
                 }
             })
             .catch(e => {
@@ -69,9 +71,9 @@ function BulkUploadModal({showBulkUpload}) {
 
     return (
         <div id="top-right-modal" data-modal-placement="top-right" tabIndex="-1" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
-            <div className="fixed inset-0 bg-primary-light bg-opacity-10 transition-opacity"></div>
+            <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
             <div className="overflow-y-auto mr-4 w-1/3">
-                <div class="relative w-full max-w-2xl h-full md:h-auto overflow-hidden shadow-xl transform transition-all sm:my-4 sm:max-w-lg sm:w-full">
+                <div class="relative w-full max-w-2xl h-full md:h-auto shadow transform transition-all sm:my-4 sm:max-w-lg sm:w-full">
                     <form onSubmit={uploadFile}>
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div>

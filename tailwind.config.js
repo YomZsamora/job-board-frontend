@@ -8,6 +8,7 @@ module.exports = {
     colors: {
       white: '#ffffff',
       gray: "#F0F0F0",
+      'gray-dark': '#6C7583',
       primary: '#101f3c',
       secondary: '#fa510f',
       'primary-light': '#d2dbec',
@@ -26,6 +27,12 @@ module.exports = {
       'alert-primary': {
         'dark': '#203D88',
         'light': '#C0DCFD',
+      },
+      badge: {
+        'legacy-light': '#EEE0DB',
+        'legacy-dark':'#442A1F',
+        'flatiron-light': '#E8DFEE',
+        'flatiron-dark': '#412653',
       }
     }
   },
