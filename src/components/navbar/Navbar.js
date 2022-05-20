@@ -68,7 +68,7 @@ function Navbar({user, logout, showBulkUpload}) {
                         <div>
                             <button onClick={toggleProfileDropdown} type="button" className="flex text-sm rounded-full items-center">
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src="/images/avatar.jpeg" alt="logo" />
+                            <img className="h-8 w-8 rounded-full" src="/images/main_avatar.png" alt="logo" />
                             </button>
                         </div>
                         { toggleDropdown ? <NavbarDropdown user={user} signOut={signOut} /> : "" }          

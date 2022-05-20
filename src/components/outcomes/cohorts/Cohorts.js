@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet';
 import CohortsList from './CohortsList';
 
 function Cohorts() {
+    console.log("HERE!!!")
+
     return (
         <div>
             <Helmet>
@@ -14,10 +16,8 @@ function Cohorts() {
                 <div className="flex flex-wrap -m-4">
                     <div className="sm:w-1/4 md:w-1/3 p-4"></div>
                     <div className="sm:w-1/4 md:w-1/3 p-4">
-                        {/* CohortList Component Here */}
                         <CohortsList />
                     </div>
-                    <div className="sm:w-1/4 md:w-1/3 p-4"></div>
                     <div className="sm:w-1/4 md:w-1/3 p-4"></div>
                 </div>
             </div>
