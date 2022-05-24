@@ -27,25 +27,23 @@ function App() {
         <div className="App">
             
             <Router>
-                <div>
-                    <Routes>
-                        <Route 
-                            path='/login' 
-                            element={ isLoggedIn ? <Navigate to="/outcomes/dashboard" /> : <Login login={login}/>} />
-                        <Route path='/reset_password' 
-                            element={<PasswordReset/>} />
-                        <Route
-                            path='/outcomes' 
-                            element={ isLoggedIn ? <Outcomes user={user} logout={logout} /> : <Navigate to="/login" />  } >
-                                <Route 
-                                    path='/outcomes/dashboard' 
-                                    element={<Dashboard />} />
-                                <Route 
-                                    path='/outcomes/cohorts' 
-                                    element={<Cohorts />} />
-                        </Route>
-                    </Routes>
-                </div>
+                <Routes>
+                    <Route 
+                        path='/login' 
+                        element={ isLoggedIn ? <Navigate to="/outcomes/dashboard" /> : <Login login={login}/>} />
+                    <Route path='/reset_password' 
+                        element={<PasswordReset/>} />
+                    <Route
+                        path='/outcomes' 
+                        element={ isLoggedIn ? <Outcomes user={user} logout={logout} /> : <Navigate to="/login" />  } >
+                            <Route 
+                                path='/outcomes/dashboard' 
+                                element={<Dashboard />} />
+                            <Route 
+                                path='/outcomes/cohorts' 
+                                element={<Cohorts />} />
+                    </Route>
+                </Routes>
             </Router>
         </div>
     );
