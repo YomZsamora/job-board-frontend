@@ -19,7 +19,8 @@ function CohortsList() {
     }, []);
 
     return (
-        <div>
+        <div className="border-r border-primary/10 h-screen">
+            
             {cohorts.map( cohort => (
                     <CohortDetails key={cohort.id} cohort={cohort}  />
                 ))

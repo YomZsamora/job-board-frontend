@@ -1,8 +1,7 @@
 
 
-function NavbarDropdown({user, signOut}) {
+function NavbarDropdown({signOut}) {
 
-    console.log(user);
 
     let handleClick = () => signOut();
 

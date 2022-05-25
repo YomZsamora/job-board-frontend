@@ -35,7 +35,7 @@ function App() {
                         element={<PasswordReset/>} />
                     <Route
                         path='/outcomes' 
-                        element={ isLoggedIn ? <Outcomes user={user} logout={logout} /> : <Navigate to="/login" />  } >
+                        element={ isLoggedIn ? <Outcomes logout={logout} /> : <Navigate to="/login" />  } >
                             <Route 
                                 path='/outcomes/dashboard' 
                                 element={<Dashboard />} />

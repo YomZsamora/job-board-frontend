@@ -29,7 +29,7 @@ function CohortDetails({cohort}) {
 
     return (
         <div>
-            <div className="hover:bg-primary/5 hover:border-l-4 hover:border-secondary px-4 py-2 cursor-pointer">
+            <div className="hover:bg-primary/5 hover:border-secondary px-4 py-2 cursor-pointer">
                 <div className="flex justify-between items-center">
                     <p className="text-primary text-nunito-semiBold text-xs">
                         {cohort.cohort} 
