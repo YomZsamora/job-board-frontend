@@ -2,6 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import CohortsList from './CohortsList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function Cohorts() {
@@ -13,9 +14,9 @@ function Cohorts() {
                 <title>Cohorts | Moringa Job-Board </title>
             </Helmet>
 
-            <div>
+            <div> 
                 <div className="flex flex-wrap">
-                    <div className="md:w-4/12">
+                    <div className="md:w-3/12">
                         <CohortsList />
                     </div>
                     <div className="md:w-4/12 p-4"></div>

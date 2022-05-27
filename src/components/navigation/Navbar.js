@@ -29,7 +29,7 @@ function Navbar({logout, showBulkUpload}) {
             <nav className="flex items-center justify-between text-primary relative px-4 py-2 border-b border-primary/10">
                 
                 <div className="flex items-center">
-                    <FontAwesomeIcon className="h-4 w-4 ml-4" icon="magnifying-glass" />
+                    <FontAwesomeIcon className="h-4 w-4" icon="magnifying-glass" />
                 </div>
 
 

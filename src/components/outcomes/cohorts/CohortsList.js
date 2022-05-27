@@ -4,6 +4,7 @@ import CohortDetails from './CohortDetails';
 
 
 
+
 function CohortsList() {
 
     const [cohorts, setCohorts] = useState([]);
@@ -19,12 +20,12 @@ function CohortsList() {
     }, []);
 
     return (
-        <div className="border-r border-primary/10 h-screen">
-            
+        <div className="overflow-y-auto h-screen">
             {cohorts.map( cohort => (
                     <CohortDetails key={cohort.id} cohort={cohort}  />
                 ))
             }
+                       
         </div>
         
     )
