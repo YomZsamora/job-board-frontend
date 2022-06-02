@@ -8,6 +8,7 @@ import SecondaryPreloader from '../UIElements/preLoaders/SecondaryPreloader'
 
 
 function Login({login}) {
+    console.log("HERE LOGIN!!!")
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = formData => authenticateUser(formData);
     
