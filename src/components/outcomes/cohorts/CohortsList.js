@@ -20,7 +20,7 @@ function CohortsList() {
     }, []);
 
     return (
-        <div className="overflow-y-auto h-screen">
+        <div >
             {cohorts.map( cohort => (
                     <CohortDetails key={cohort.id} cohort={cohort}  />
                 ))

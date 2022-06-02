@@ -16,9 +16,9 @@ function Outcomes({logout}) {
                 <title>Outcomes | Moringa Job-Board </title>
             </Helmet>
             
-            <div className="flex flex-row">
+            <div className="flex flex-row h-screen">
                 <SideBar />
-                <div className="w-full">
+                <div className="w-full overflow-y-hidden h-screen">
                     <Navbar logout={logout} showBulkUpload={showBulkUpload} />
                     {/* Outcomes Main Components */}
                     <Outlet />
