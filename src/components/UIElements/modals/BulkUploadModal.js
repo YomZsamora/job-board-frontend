@@ -1,7 +1,7 @@
 
 import apiClient from '../../../services/api';
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import * as Unicons from '@iconscout/react-unicons';
 import PrimaryPreloader from '../preLoaders/PrimaryPreloader'
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertDanger from '../Alerts/AlertDanger';
@@ -80,7 +80,7 @@ function BulkUploadModal({showBulkUpload}) {
                                 <div class="flex justify-between items-center">
                                     <h3 className="text-xl leading-6 text-nunito-bold text-secondary" id="modal-title">Bulk Upload Students</h3>
                                     <button onClick={cancelUpload} type="button" class="text-primary hover:text-alert-danger-dark rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
-                                        <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                                        <Unicons.UilTimes size="18" />
                                     </button>
                                 </div>
                                 <div className="text-center sm:mt-0 sm:text-left">
@@ -98,7 +98,7 @@ function BulkUploadModal({showBulkUpload}) {
                                         { uploadFail ? <AlertDanger message={uploadResponse} /> : "" }
                                         <div className="mt-4 flex justify-center px-6 pt-5 pb-6 border-2 border-primary-light border-dashed bg-gray w-full">
                                             <div className="space-y-1 text-center">
-                                                { uploadPreloader ? <PrimaryPreloader width={45} height={45} /> : <FontAwesomeIcon className="h-10 w-10 text-secondary" icon="upload" /> }
+                                                { uploadPreloader ? <PrimaryPreloader width={45} height={45} /> : <span className="flex justify-center"><Unicons.UilFileUploadAlt size="80" className="text-secondary" /></span> }
                                                 <div className="flex text-xs text-primary mb-8">
                                                         <label
                                                             htmlFor="file-upload"

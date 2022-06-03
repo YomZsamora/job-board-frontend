@@ -8,7 +8,6 @@ import SecondaryPreloader from '../UIElements/preLoaders/SecondaryPreloader'
 
 
 function Login({login}) {
-    console.log("HERE LOGIN!!!")
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = formData => authenticateUser(formData);
     
@@ -52,8 +51,8 @@ function Login({login}) {
                     {/* <AlertDanger message={error} /> */}
                     { userDoesntExists ?  <AlertDanger message={error} /> : <p></p> }
                     <div className="login-title text-center mb-6">
-                        <h3 className="text-nunito-bold text-4xl mb-2">Member Sign In</h3>
-                        <p className="text-nunito-regular text-xs"><span>Sign in with your email</span></p>
+                        <h3 className="text-nunito-bold text-5xl mb-2">Member Sign In</h3>
+                        <p className="text-nunito-regular text-sm"><span>Sign in with your email</span></p>
                     </div>
                     <form className="px-7" onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-4">
@@ -87,7 +86,7 @@ function Login({login}) {
                                 onChange={e => setPassword(e.target.value)} />
                                 {errors.password && <p className="text-alert-danger-dark text-xs mt-2">You need to enter the password to log in!</p>}
                         </div>
-                        <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">
+                        <button className="w-full bg-secondary hover:-translate-y-1 hover:scale-110 rounded text-white px-6 py-2 text-xs">
                             { loginPreloader ? <SecondaryPreloader width={15} height={15} /> :  "Sign In" }
                             </button>
                     </form>

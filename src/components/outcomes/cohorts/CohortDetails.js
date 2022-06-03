@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
 import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger'
 import calcDateDifference from '../../../services/dateDifference'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import * as Unicons from '@iconscout/react-unicons';
 
 function CohortDetails({cohort}) {
     
@@ -30,9 +30,9 @@ function CohortDetails({cohort}) {
 
     return (
         <div>
-            <div className="hover:bg-primary/5 hover:border-secondary px-4 py-2 cursor-pointer">
+            <div className="hover:bg-primary/5 hover:border-secondary px-8 py-2 cursor-pointer">
                 <div className="flex items-end justify-between">
-                    <p className="text-primary text-nunito-semiBold text-xs">
+                    <p className="text-primary text-nunito-bold text-sm">
                         {cohort.cohort} 
                         { cohort.curriculum === 'Legacy' ?
                             <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold ml-1 px-1.5 py-0.5 rounded">Legacy</span> :
@@ -40,14 +40,12 @@ function CohortDetails({cohort}) {
                         }
                     </p>
                     {/* Ellipsis Here */}
-                    <FontAwesomeIcon className="text-xs hover:text-secondary" icon="ellipsis" />
+                    <Unicons.UilEllipsisH className="hover:text-secondary" size="18" />
                 </div>
-                <span className="text-[10px] text-nunito-light text-primary/70">{cohort_end_date} ({timeSinceGraduation})</span>
                 <div className="flex justify-between mb-1 items-end">
+                    <span className="text-[10px] text-nunito-light text-primary/70">{cohort_end_date} ({timeSinceGraduation})</span>
                     <span className="text-primary text-[11px]">{noOfGraduates + ' Graduates'} </span>
-                    <span className="text-alert-danger-dark  text-[10px]">45%</span>
                 </div>
-                <ProgressBarDanger />
             </div>
         </div>
     )
