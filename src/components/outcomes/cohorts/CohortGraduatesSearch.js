@@ -58,7 +58,7 @@ function CohortGraduatesSearch() {
                                 key={person.id}
                                 className={({ active }) =>
                                 `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                                    active ? 'bg-primary/10 text-secondary' : 'text-primary'
+                                    active ? 'bg-primary/5 text-secondary' : 'text-primary'
                                 }`
                                 }
                                 value={person}

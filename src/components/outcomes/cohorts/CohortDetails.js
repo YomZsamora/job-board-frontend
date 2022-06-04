@@ -33,10 +33,10 @@ function CohortDetails({cohort}) {
             <div className="hover:bg-primary/5 hover:border-secondary px-8 py-2 cursor-pointer">
                 <div className="flex items-end justify-between">
                     <p className="text-primary text-nunito-bold text-sm">
-                        {cohort.cohort} 
+                        <span className="mr-1">{cohort.cohort}</span> 
                         { cohort.curriculum === 'Legacy' ?
-                            <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold ml-1 px-1.5 py-0.5 rounded">Legacy</span> :
-                            <span className="bg-badge-flatiron-light text-badge-flatiron-dark text-[10px] text-nunito-semiBold ml-1 px-1.5 py-0.5 rounded">Flatiron</span>
+                            <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Legacy</span> :
+                            <span className="bg-badge-flatiron-light text-badge-flatiron-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Flatiron</span>
                         }
                     </p>
                     {/* Ellipsis Here */}
