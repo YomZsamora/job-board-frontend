@@ -26,7 +26,7 @@ function Navbar({logout, showBulkUpload}) {
     
     return (
         <div>        
-            <nav className="flex items-center justify-between text-primary relative px-4 py-2 border-b border-primary/10">
+            <nav className="flex items-center justify-between text-primary  px-4 py-2 border-b border-primary/10">
                 
                 <div className="flex items-center">
                     <Unicons.UilSearch size="18" />

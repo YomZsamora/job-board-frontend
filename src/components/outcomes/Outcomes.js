@@ -18,7 +18,7 @@ function Outcomes({logout}) {
             
             <div className="flex flex-row h-screen">
                 <SideBar />
-                <div className="w-full overflow-y-hidden h-screen">
+                <div className="w-full h-screen overflow-y-auto">
                     <Navbar logout={logout} showBulkUpload={showBulkUpload} />
                     {/* Outcomes Main Components */}
                     <Outlet />
