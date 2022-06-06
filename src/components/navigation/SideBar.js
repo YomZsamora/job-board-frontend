@@ -5,7 +5,7 @@ import * as Unicons from '@iconscout/react-unicons';
 
 function Sidebar() {
     return (
-        <aside className="w-48" aria-label="Sidebar">
+        <aside className="w-56" aria-label="Sidebar">
             <div className="overflow-y-auto py-4 pl-4 border-r border-primary/10 h-screen">
                 <a href="/outcomes/dashboard" className="flex items-center">
                     <img src="/images/logo.png" className="w-12 mr-3" alt="Moringa Logo" />

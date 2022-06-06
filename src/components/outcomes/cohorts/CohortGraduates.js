@@ -2,11 +2,14 @@
 import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger';
 import CohortGraduatesSearch from './CohortGraduatesSearch'
 
-
 function CohortGraduates() {
     return (
-        <div className="flex flex-col bg-gray-light px-8 pt-4 h-screen">
-            <div>
+        <div className="flex flex-col bg-gray-light h-screen pt-4">
+            
+
+
+
+            <div className="px-8">
                 <div className="flex justify-between mt-1 items-start">
                     <div>
                         <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Legacy</span>
@@ -27,7 +30,7 @@ function CohortGraduates() {
             </div>
 
             {/* Graduates List */}
-            <div className="overflow-y-auto mt-4">
+            <div className="overflow-y-auto mt-4 px-8">
                 <div className="mt-2">
                     <div class="flex items-center space-x-4">
                         <img class="w-8 h-8 rounded-full" src="/images/user-icon.png" alt="" />
@@ -215,7 +218,7 @@ function CohortGraduates() {
 
             {/* Graduates avatar and add graduate to Cohort */}
             
-            <div className="sticky bottom-0 py-2 border-t border-primary/10 bg-gray-light">
+            <div className="sticky bottom-0 mt-2 py-2 px-8 border-t border-primary/10 bg-gray-light">
                 {/* <h4 className="text-nunito-light text-xs mb-1">Graduates</h4> */}
                 <div className="flex flex-wrap items-center">
                     <div class="flex -space-x-2">
