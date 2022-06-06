@@ -1,6 +1,7 @@
 
 import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger';
 import CohortGraduatesSearch from './CohortGraduatesSearch'
+import * as Unicons from '@iconscout/react-unicons';
 
 function CohortGraduates() {
     return (
@@ -218,7 +219,7 @@ function CohortGraduates() {
 
             {/* Graduates avatar and add graduate to Cohort */}
             
-            <div className="sticky bottom-0 mt-2 py-2 px-8 border-t border-primary/10 bg-gray-light">
+            <div className="flex flex-wrap justify-between sticky bottom-0 mt-2 py-2 px-8 border-t border-primary/10 bg-gray-light">
                 {/* <h4 className="text-nunito-light text-xs mb-1">Graduates</h4> */}
                 <div className="flex flex-wrap items-center">
                     <div class="flex -space-x-2">
@@ -228,15 +229,15 @@ function CohortGraduates() {
                         <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
                         <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
                         <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
-                        <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
-                        <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
-                        <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
-                        <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
-                        <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
-                        <img class="w-8 h-8 border-2 border-primary/10 rounded-full" src="/images/avatar.jpeg" alt="" />
                     </div>
-                    <a class="flex items-center justify-center w-6 h-6 text-[10px] text-nunito-regular bg-primary/10 rounded-full " href="#">+99</a>
+                    <a class="flex items-center justify-center w-6 h-6 text-[10px] text-nunito-regular bg-primary/10 rounded-full " href="#">+41</a>
                     <a class="flex items-center justify-center w-6 h-6 text-lg text-nunito-regular rounded-full text-secondary ml-2 border-2 border-secondary/40 border-dashed" href="#">+</a>
+                </div>
+
+                <div className="">
+                    <button class="text-alert-danger-dark text-xs text-nunito-semiBold uppercase py-2.5 text-center inline-flex items-center" type="button">
+                        <span>Delete MC47/48 </span>
+                    </button>
                 </div>
             </div>
             
