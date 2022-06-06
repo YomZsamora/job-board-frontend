@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Navbar from '../navigation/Navbar';
 import BulkUploadModal from '../UIElements/modals/BulkUploadModal';
+import AddCohortModal from '../UIElements/modals/AddCohortModal';
 import { Outlet } from "react-router-dom";
 import SideBar from '../navigation/SideBar'
 
@@ -27,6 +28,7 @@ function Outcomes({logout}) {
             
             {/* Modals */}
             { show ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null}
+            <AddCohortModal />
         </div>
     )
 }

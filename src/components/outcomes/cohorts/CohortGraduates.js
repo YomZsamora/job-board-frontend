@@ -1,7 +1,7 @@
 
 import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger';
 import CohortGraduatesSearch from './CohortGraduatesSearch'
-import * as Unicons from '@iconscout/react-unicons';
+
 
 function CohortGraduates() {
     return (
