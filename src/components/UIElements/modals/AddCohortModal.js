@@ -31,19 +31,16 @@ const courseOfferings = [
     
 ]
 
-function AddCohortModal() {
+function AddCohortModal({showAddCohort}) {
 
-    const [selected, setSelected] = useState(courseOfferings[0])
-    // const datepickerEl = document.getElementById('myDate');
-    // new Datepicker(datepickerEl, {
-    //     // options
-    // }); 
-     
+    const [selected, setSelected] = useState(courseOfferings[0]);
+
+    let cancelAddCohort = () => showAddCohort();
 
     return (
-        <div>
-            
+        <div>            
             <div className="relative z-30" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
                 <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
 
                 <div className="fixed inset-0 overflow-hidden">
@@ -53,8 +50,7 @@ function AddCohortModal() {
                                 <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
                                     <button type="button" className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
                                     <span className="sr-only">Close panel</span>
-                                    
-                                    <Unicons.UilTimes size="18"  />
+                                    <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
                                     </button>
                                 </div>
 
@@ -171,10 +167,8 @@ function AddCohortModal() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
-
 }
 
 

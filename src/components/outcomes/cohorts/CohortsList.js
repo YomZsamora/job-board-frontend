@@ -29,7 +29,7 @@ function CohortsList() {
             <div>
                 <div className="flex flex-wrap justify-between mb-2">
                     <div className="flex flex-wrap items-center">
-                        {/* Sort List of Cohorts */}
+                        {/* Sort List of Cohorts by No. of Grduates, Graduation Date etc */}
                         <div>
                             <button onClick={toggleSortDropdown} className="text-primary text-nunito-semiBold border-1 border-secondary text-xs px-4 py-1.5 text-center inline-flex items-center" type="button">
                                 Sort By:  
@@ -41,7 +41,7 @@ function CohortsList() {
                             <div id="dropdown" 
                             className={`${
                                 !showSortDropdown ? 'hidden' : ''
-                            } z-20 absolute bg-white  shadow w-44 dark:bg-gray-700 ml-8`} >
+                                } z-20 absolute bg-white  shadow w-44 dark:bg-gray-700 ml-8`} >
                                 <ul className="py-1 text-sm text-primary">
                                     <li  className="block px-2 py-2 hover:bg-gray-light text-xs cursor-pointer">
                                         No. Of Graduates
@@ -52,7 +52,6 @@ function CohortsList() {
                                 </ul>
                             </div>
                         </div>
-
                         {/* Sort by Software Development or Data Science  */}
                         <div>
                             <div className="flex py-1.5 items-center">
@@ -66,12 +65,7 @@ function CohortsList() {
                                 </div>
                             </div>
                         </div>
-                        
-
                     </div>
-                    
-                    
-                    
                     <button type="button" className="text-alert-success-dark bg-alert-success-light uppercase text-nunito-light rounded-sm text-xs px-4 py-1.5 h-fit text-center inline-flex items-center ">
                         <Unicons.UilPlus size="18" />
                         {/* <span className="pl-2">Add New Cohort</span> */}
@@ -79,7 +73,8 @@ function CohortsList() {
                 </div>
             </div>
             
-             <div className="flex flex-row relative border-b border-gray-light w-full overflow-x-auto items-center">
+            {/* Cohort List Scroll */}
+            <div className="flex flex-row relative border-b border-gray-light w-full overflow-x-auto items-center">
                 <button type="button" className="flex sticky top-0 left-0 z-10 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none">
                     <span className="inline-flex justify-center items-center w-6 h-6 rounded-full sm:w-10 sm:h-10 bg-gray-light group-hover:text-secondary ">
                         <Unicons.UilArrowLeft size="24" />
@@ -98,7 +93,6 @@ function CohortsList() {
                         <Unicons.UilArrowRight size="24" />
                     </span>
                 </button>
-                
             </div>
         </div>
         

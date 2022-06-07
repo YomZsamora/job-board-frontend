@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
 import calcDateDifference from '../../../services/dateDifference'
-import * as Unicons from '@iconscout/react-unicons';
 
 function CohortDetails({cohort}) {
     
@@ -38,7 +37,6 @@ function CohortDetails({cohort}) {
                             <span className="bg-badge-flatiron-light text-badge-flatiron-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Flatiron</span>
                         }
                     </p>
-                    
                 </div>
                 <div className="flex flex-col items-start">
                     <span className="text-primary text-[11px]">{noOfGraduates + ' Graduates'} </span>

@@ -8,8 +8,11 @@ import { Outlet } from "react-router-dom";
 import SideBar from '../navigation/SideBar'
 
 function Outcomes({logout}) {
-    const [show, setShow] = useState(false);
-    let showBulkUpload = () => setShow(!show);
+    const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
+    const [showAddCohortModal, setShowAddCohortModal] = useState(false);
+
+    let showBulkUpload = () => setShowBulkUploadModal(!showBulkUploadModal);
+    let showAddCohort = () => setShowAddCohortModal(!showAddCohortModal)
 
     return (
         <div>
@@ -27,8 +30,8 @@ function Outcomes({logout}) {
             </div>
             
             {/* Modals */}
-            { show ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null}
-            <AddCohortModal />
+            { showBulkUploadModal ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null }
+            { showAddCohortModal ? <AddCohortModal showAddCohort={showAddCohort} /> : null }
         </div>
     )
 }
