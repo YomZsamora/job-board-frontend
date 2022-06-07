@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import * as Unicons from '@iconscout/react-unicons';
+import Datepicker from 'flowbite-datepicker/Datepicker';
 
 const courseOfferings = [
     {
@@ -31,37 +32,41 @@ const courseOfferings = [
 ]
 
 function AddCohortModal() {
+
     const [selected, setSelected] = useState(courseOfferings[0])
+    // const datepickerEl = document.getElementById('myDate');
+    // new Datepicker(datepickerEl, {
+    //     // options
+    // }); 
+     
 
     return (
         <div>
             
-            <div class="relative z-30" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-                <div class="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
+            <div className="relative z-30" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+                <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
 
-                <div class="fixed inset-0 overflow-hidden">
-                    <div class="absolute inset-0 overflow-hidden">
-                        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                            <div class="pointer-events-auto relative w-screen max-w-md">
-                                <div class="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
-                                    <button type="button" class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
-                                    <span class="sr-only">Close panel</span>
+                <div className="fixed inset-0 overflow-hidden">
+                    <div className="absolute inset-0 overflow-hidden">
+                        <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                            <div className="pointer-events-auto relative w-screen max-w-md">
+                                <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
+                                    <button type="button" className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                                    <span className="sr-only">Close panel</span>
                                     
-                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
+                                    <Unicons.UilTimes size="18"  />
                                     </button>
                                 </div>
 
-                                <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                                    <div class="px-4 sm:px-6">
-                                        <h2 class="text-lg text-nunito-bold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
+                                <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                                    <div className="px-4 sm:px-6">
+                                        <h2 className="text-lg text-nunito-semiBold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
                                         <p className="text-nunito-regular text-xs text-primary/70">Note: Graduation date has to be provided for new Cohorts. Ongoing cohorts can't be added.</p>
                                     </div>
-                                    <div class="relative mt-6 flex-1 px-4 sm:px-6">
+                                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
                                     
-                                        <div class="absolute inset-0 px-4 sm:px-6">
-                                            <div class="h-full">
+                                        <div className="absolute inset-0 px-4 sm:px-6">
+                                            <div className="h-full">
 
                                                 <form>
                                                     <div className="w-full">
@@ -126,16 +131,35 @@ function AddCohortModal() {
                                                         </div>
                                                     </div>
 
-                                                    <div class="flex flex-col mt-6">
+                                                    <div className="flex flex-col mt-6">
                                                         <div className="flex">
-                                                            <button class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-xs text-nunito-regular text-center text-primary border border-primary-light rounded-l-md hover:bg-primary-light" type="button">
+                                                            <button className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-xs text-nunito-regular text-center text-primary border border-primary-light rounded-l-md hover:bg-primary-light" type="button">
                                                                 SDF-FT-INT 
                                                             </button>
-                                                            <div class="relative w-full">
-                                                                <input type="text" class="block p-2.5 w-full z-20 text-sm text-primary bg-gray-50 rounded-r-lg border-l-gray-light border-l-2 border border-primary-light focus:outline-none" placeholder="Enter Course ID" required="" />
+                                                            <div className="relative w-full">
+                                                                <input type="text" className="block p-2.5 w-full z-20 text-sm text-primary bg-gray-50 rounded-r-lg border-l-gray-light border-l-2 border border-primary-light focus:outline-none" placeholder="Enter Course ID" required="" />
                                                             </div>
                                                         </div>
-                                                        <p class="mt-1 text-xs text-gray-dark">e.g SDC47, DSF-PT1, SDF-FT3, DSC12, SDF-FT-INT2.</p>
+                                                        <div>
+                                                            <small className="mt-1 text-xs text-gray-dark">e.g SDC47, DSF-PT1, SDF-FT3, DSC12, SDF-FT-INT2.</small>
+                                                        </div>
+
+                                                        <div className="flex items-center">
+                                                            <div className="relative">
+                                                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                    <Unicons.UilCalendarAlt size="18"  />
+                                                                </div>
+                                                                <input id="myDate" datepicker="true" name="start" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Select Start Date " />
+                                                            </div>
+                                                            
+                                                            <div className="relative">
+                                                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                    <Unicons.UilCalendarAlt size="18"  />
+                                                                </div>
+                                                                <input datepicker="true" name="end" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Select Graduation Date" />
+                                                            </div>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </form>
                                             </div>
@@ -150,21 +174,8 @@ function AddCohortModal() {
 
         </div>
     )
+
 }
 
-function CheckIcon(props) {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" {...props}>
-        <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
-        <path
-          d="M7 13l3 3 7-7"
-          stroke="#fff"
-          strokeWidth={1.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )
-  }
 
 export default AddCohortModal;

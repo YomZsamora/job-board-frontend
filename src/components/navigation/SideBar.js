@@ -21,7 +21,7 @@ function Sidebar() {
                     </NavLink>
                     <button type="button" className="flex items-center p-1 w-full text-xs text-nunito-regular text-primary" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                             <Unicons.UilBag size="14" />
-                            <span className="pl-3" sidebar-toggle-item>Jobs</span>
+                            <span className="pl-3">Jobs</span>
                     </button>
                     <ul id="dropdown-example" className="pt-1 pb-2">
                         <li>
