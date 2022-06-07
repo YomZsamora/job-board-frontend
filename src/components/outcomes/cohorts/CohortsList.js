@@ -5,7 +5,7 @@ import * as Unicons from '@iconscout/react-unicons';
 
 
 
-function CohortsList() {
+function CohortsList({selectedCohort, getActiveCohortNoOfGraduates}) {
 
     const [cohorts, setCohorts] = useState([]);
     const [showSortDropdown, setShowSortDropdown] = useState(false)
@@ -20,6 +20,7 @@ function CohortsList() {
             apiClient.get('http://localhost/api/get_cohorts')
             .then(response => {
                 setCohorts(response.data.cohorts);
+                selectedCohort(response.data.cohorts[0]);
             })
         });
     }, []);
@@ -83,7 +84,7 @@ function CohortsList() {
                 <ul className="flex flex-none -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                     {cohorts.map( cohort => (
                         <li  key={cohort.id} className="mr-2" role="presentation">
-                            <CohortDetails cohort={cohort}  />
+                            <CohortDetails cohort={cohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} />
                         </li>        
                         ))
                     }

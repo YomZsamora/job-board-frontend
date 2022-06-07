@@ -3,26 +3,28 @@ import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger';
 import CohortGraduatesSearch from './CohortGraduatesSearch'
 
 
-function CohortGraduates() {
+function CohortGraduates({activeCohort, activeCohortNoOfGraduates}) {
+
+    // console.log("COHORT GRADUATES" + activeCohortNoOfGraduates);
+
     return (
         <div className="flex flex-col bg-gray-light h-screen pt-4">
             <div className="px-8">
                 {/* Selected or Active Cohort General Stats */}
                 <div className="flex justify-between mt-1 items-start">
                     <div>
-                        <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Legacy</span>
+                        <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">{activeCohort.curriculum}</span>
                         <h2 className="text-xl text-nunito-light">
-                            MC47/48
+                            {activeCohort.cohort}
                             <span className="text-[10px] text-nunito-light text-primary/70 ml-2">2 Months Ago</span>
                         </h2>
                     </div>
                     <div className="text-right">
-                        <span className="text-xs text-nunito-light text-primary/70">61 Graduates</span>
+                        <span className="text-xs text-nunito-light text-primary/70">{activeCohortNoOfGraduates} Graduates</span>
                         <ProgressBarDanger />
                         <span className="text-primary text-xs">45%</span>
                     </div>
                 </div>
-
                 {/* Search Graduates for a particular Cohort  */}
                 <CohortGraduatesSearch />
             </div>

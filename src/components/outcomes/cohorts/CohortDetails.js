@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
 import calcDateDifference from '../../../services/dateDifference'
 
-function CohortDetails({cohort}) {
+function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates}) {
     
     const end_date = new Date(cohort.end_date);
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -11,12 +11,16 @@ function CohortDetails({cohort}) {
 
     const [noOfGraduates, setNoOfGraduates] = useState("");
 
+    let showCohortDetails = () => {
+        selectedCohort(cohort);
+        getActiveCohortNoOfGraduates(noOfGraduates)
+    }
+
     useEffect(() => {
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
             apiClient.get(`http://localhost/api/get_cohort_graduates/${cohort.id}`)
             .then(response => {
-                // console.log(response.data);
                 setNoOfGraduates(response.data.noOfGraduates);
             })
         })
@@ -28,7 +32,7 @@ function CohortDetails({cohort}) {
 
     return (
         <div>
-            <div className="hover:bg-primary/5 hover:border-secondary px-4 py-2 cursor-pointer w-52">
+            <div onClick={showCohortDetails} className="hover:bg-primary/5 hover:border-secondary px-4 py-2 cursor-pointer w-52">
                 <div className="flex items-center justify-between">
                     <p className="text-primary text-nunito-bold text-sm">
                         <span className="mr-1">{cohort.cohort}</span> 
