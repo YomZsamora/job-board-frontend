@@ -1,22 +1,28 @@
 
 import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger';
 import CohortGraduatesSearch from './CohortGraduatesSearch'
+import calcDateDifference from '../../../services/dateDifference'
+import CohortGraduatesList from './CohortGraduatesList';
 
 
-function CohortGraduates({activeCohort, activeCohortNoOfGraduates}) {
+function CohortGraduates({activeCohort, activeCohortNoOfGraduates, activeCohortGraduates}) {
 
-    // console.log("COHORT GRADUATES" + activeCohortNoOfGraduates);
+    // console.log(activeCohortGraduates);
+    const timeSinceGraduation = calcDateDifference(activeCohort.end_date);
 
     return (
         <div className="flex flex-col bg-gray-light h-screen pt-4">
-            <div className="px-8">
+            <div className="px-8 mb-4">
                 {/* Selected or Active Cohort General Stats */}
                 <div className="flex justify-between mt-1 items-start">
                     <div>
-                        <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">{activeCohort.curriculum}</span>
+                        { activeCohort.curriculum === 'Legacy' ?
+                            <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Legacy</span> :
+                            <span className="bg-badge-flatiron-light text-badge-flatiron-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Flatiron</span>
+                        }
                         <h2 className="text-xl text-nunito-light">
                             {activeCohort.cohort}
-                            <span className="text-[10px] text-nunito-light text-primary/70 ml-2">2 Months Ago</span>
+                            <span className="text-[10px] text-nunito-light text-primary/70 ml-2">{timeSinceGraduation}</span>
                         </h2>
                     </div>
                     <div className="text-right">
@@ -26,20 +32,17 @@ function CohortGraduates({activeCohort, activeCohortNoOfGraduates}) {
                     </div>
                 </div>
                 {/* Search Graduates for a particular Cohort  */}
-                <CohortGraduatesSearch />
+                <CohortGraduatesSearch activeCohortGraduates={activeCohortGraduates} />
             </div>
 
             {/* Graduates List */}
-            <div className="overflow-y-auto mt-4 px-8">
-                <div className="mt-2">
-                    <div className="flex items-center space-x-4">
-                        <img className="w-8 h-8 rounded-full" src="/images/user-icon.png" alt="" />
-                        <div className="space-y-0 text-primary">
-                            <div className="text-xs">Adamu Wang'anya</div>
-                            <div className="text-[10px] text-primary/50">adamu.wang'anya@student.moringaschool.com</div>
-                        </div>
+            <div className="h-full overflow-y-auto pb-32">
+                {activeCohortGraduates.map( graduate => (
+                    <div key={graduate.id}>
+                        <CohortGraduatesList graduate={graduate} />
                     </div>
-                </div>
+                    ))
+                }
             </div>
             
 

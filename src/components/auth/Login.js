@@ -88,7 +88,7 @@ function Login({login}) {
                         </div>
                         <button className="w-full bg-secondary hover:-translate-y-1 hover:scale-110 rounded text-white px-6 py-2 text-xs">
                             { loginPreloader ? <SecondaryPreloader width={15} height={15} /> :  "Sign In" }
-                            </button>
+                        </button>
                     </form>
                 </div>
             </div>

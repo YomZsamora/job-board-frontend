@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
 import calcDateDifference from '../../../services/dateDifference'
 
-function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates}) {
+function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
     
     const end_date = new Date(cohort.end_date);
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -10,10 +10,12 @@ function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates}) {
     const timeSinceGraduation = calcDateDifference(cohort.end_date);
 
     const [noOfGraduates, setNoOfGraduates] = useState("");
+    const [cohortGraduates, setCohortGraduates] = useState([]);
 
     let showCohortDetails = () => {
         selectedCohort(cohort);
-        getActiveCohortNoOfGraduates(noOfGraduates)
+        getActiveCohortNoOfGraduates(noOfGraduates);
+        getActiveCohortGraduates(cohortGraduates);
     }
 
     useEffect(() => {
@@ -22,6 +24,7 @@ function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates}) {
             apiClient.get(`http://localhost/api/get_cohort_graduates/${cohort.id}`)
             .then(response => {
                 setNoOfGraduates(response.data.noOfGraduates);
+                setCohortGraduates(response.data.graduates)
             })
         })
         .catch(e => {
@@ -32,7 +35,9 @@ function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates}) {
 
     return (
         <div>
-            <div onClick={showCohortDetails} className="hover:bg-primary/5 hover:border-secondary px-4 py-2 cursor-pointer w-52">
+            <div onClick={showCohortDetails} className={`${
+                                false ? 'bg-primary/5 border-t-2 border-secondary' : ''
+                                } hover:bg-primary/5 px-4 py-2 cursor-pointer w-52`} >
                 <div className="flex items-center justify-between">
                     <p className="text-primary text-nunito-bold text-sm">
                         <span className="mr-1">{cohort.cohort}</span> 

@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import apiClient from '../../../services/api';
 import CohortDetails from './CohortDetails';
 import * as Unicons from '@iconscout/react-unicons';
+import { useOutletContext } from "react-router-dom";
 
 
-
-function CohortsList({selectedCohort, getActiveCohortNoOfGraduates}) {
+function CohortsList({showAddCohortModal, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
+    
+    const { setShowAddCohortModal } = useOutletContext();
 
     const [cohorts, setCohorts] = useState([]);
     const [showSortDropdown, setShowSortDropdown] = useState(false)
 
     // Toggle Sort Dropdown
     let toggleSortDropdown = () => setShowSortDropdown(!showSortDropdown)
+    let handleAddCohort = () => setShowAddCohortModal(!showAddCohortModal);
     
     // Fetch All Cohorts
     useEffect(() => {
@@ -28,7 +31,7 @@ function CohortsList({selectedCohort, getActiveCohortNoOfGraduates}) {
     return (
         <div >
             <div>
-                <div className="flex flex-wrap justify-between mb-2">
+                <div className="flex flex-wrap justify-between">
                     <div className="flex flex-wrap items-center">
                         {/* Sort List of Cohorts by No. of Grduates, Graduation Date etc */}
                         <div>
@@ -67,9 +70,9 @@ function CohortsList({selectedCohort, getActiveCohortNoOfGraduates}) {
                             </div>
                         </div>
                     </div>
-                    <button type="button" className="text-alert-success-dark bg-alert-success-light uppercase text-nunito-light rounded-sm text-xs px-4 py-1.5 h-fit text-center inline-flex items-center ">
+                    <button onClick={handleAddCohort} type="button" className="group text-alert-success-dark bg-alert-success-light uppercase text-nunito-light rounded-sm text-xs px-4 py-1.5 h-fit text-center inline-flex items-center ">
                         <Unicons.UilPlus size="18" />
-                        {/* <span className="pl-2">Add New Cohort</span> */}
+                        <span className="pl-2 hidden transition duration-300 group-hover:block">Add New Cohort</span>
                     </button>
                 </div>
             </div>
@@ -77,21 +80,21 @@ function CohortsList({selectedCohort, getActiveCohortNoOfGraduates}) {
             {/* Cohort List Scroll */}
             <div className="flex flex-row relative border-b border-gray-light w-full overflow-x-auto items-center">
                 <button type="button" className="flex sticky top-0 left-0 z-10 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none">
-                    <span className="inline-flex justify-center items-center w-6 h-6 rounded-full sm:w-10 sm:h-10 bg-gray-light group-hover:text-secondary ">
-                        <Unicons.UilArrowLeft size="24" />
+                    <span className="inline-flex justify-center items-center w-6 h-6 rounded-full bg-gray-light group-hover:text-secondary ">
+                        <Unicons.UilArrowLeft size="20" />
                     </span>
                 </button>
                 <ul className="flex flex-none -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                     {cohorts.map( cohort => (
-                        <li  key={cohort.id} className="mr-2" role="presentation">
-                            <CohortDetails cohort={cohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} />
+                        <li  key={cohort.id} role="presentation">
+                            <CohortDetails cohort={cohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates} />
                         </li>        
                         ))
                     }
                 </ul>
                 <button type="button" className="flex sticky top-0 right-0 z-10 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none">
-                    <span className="inline-flex justify-center items-center w-6 h-6 rounded-full sm:w-10 sm:h-10 bg-gray-light group-hover:text-secondary ">
-                        <Unicons.UilArrowRight size="24" />
+                    <span className="inline-flex justify-center items-center w-6 h-6 rounded-full bg-gray-light group-hover:text-secondary ">
+                        <Unicons.UilArrowRight size="20" />
                     </span>
                 </button>
             </div>

@@ -11,7 +11,7 @@ const people = [
     { id: 6, name: 'Hellen Schmidt' },
 ]
 
-function CohortGraduatesSearch() {
+function CohortGraduatesSearch({activeCohortGraduates}) {
 
     const [selected, setSelected] = useState(people[0])
     const [query, setQuery] = useState('')

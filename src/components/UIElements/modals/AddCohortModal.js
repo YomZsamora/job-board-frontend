@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import * as Unicons from '@iconscout/react-unicons';
-import Datepicker from 'flowbite-datepicker/Datepicker';
+import { Transition } from '@headlessui/react'
 
 const courseOfferings = [
     {
@@ -48,22 +48,20 @@ function AddCohortModal({showAddCohort}) {
                         <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                             <div className="pointer-events-auto relative w-screen max-w-md">
                                 <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
-                                    <button type="button" className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                                    <button type="button" className="rounded-md text-gray-300 hover:text-alert-danger-dark focus:outline-none focus:ring-2 focus:ring-white">
                                     <span className="sr-only">Close panel</span>
                                     <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
                                     </button>
                                 </div>
 
-                                <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                                <div className="flex h-full flex-col justify-between overflow-y-scroll bg-white pt-6 shadow-xl">
                                     <div className="px-4 sm:px-6">
                                         <h2 className="text-lg text-nunito-semiBold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
                                         <p className="text-nunito-regular text-xs text-primary/70">Note: Graduation date has to be provided for new Cohorts. Ongoing cohorts can't be added.</p>
                                     </div>
-                                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                                    
+                                    <div className="relative mt-6 flex-1  sm:px-6">
                                         <div className="absolute inset-0 px-4 sm:px-6">
                                             <div className="h-full">
-
                                                 <form>
                                                     <div className="w-full">
                                                         <div className="mx-auto w-full max-w-md">
@@ -127,7 +125,7 @@ function AddCohortModal({showAddCohort}) {
                                                         </div>
                                                     </div>
 
-                                                    <div className="flex flex-col mt-6">
+                                                    <div className="flex flex-col mt-10">
                                                         <div className="flex">
                                                             <button className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-xs text-nunito-regular text-center text-primary border border-primary-light rounded-l-md hover:bg-primary-light" type="button">
                                                                 SDF-FT-INT 
@@ -140,27 +138,29 @@ function AddCohortModal({showAddCohort}) {
                                                             <small className="mt-1 text-xs text-gray-dark">e.g SDC47, DSF-PT1, SDF-FT3, DSC12, SDF-FT-INT2.</small>
                                                         </div>
 
-                                                        <div className="flex items-center">
+                                                        <div className="flex items-center mt-4">
                                                             <div className="relative">
                                                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                                     <Unicons.UilCalendarAlt size="18"  />
                                                                 </div>
-                                                                <input id="myDate" datepicker="true" name="start" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Select Start Date " />
+                                                                <input id="myDate" datepicker="true" name="start" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Start Date " />
                                                             </div>
                                                             
                                                             <div className="relative">
                                                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                                     <Unicons.UilCalendarAlt size="18"  />
                                                                 </div>
-                                                                <input datepicker="true" name="end" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Select Graduation Date" />
+                                                                <input datepicker="true" name="end" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Graduation Date" />
                                                             </div>
                                                         </div>
-                                                        
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>        
                                     </div>
+                                    <button className="w-full bg-alert-success-light text-alert-success-dark uppercase px-6 py-4 text-md text-nunito-light">
+                                        Add New Cohort
+                                    </button>
                                 </div>
                             </div>
                         </div>

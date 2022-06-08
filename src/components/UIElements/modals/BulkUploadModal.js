@@ -70,16 +70,16 @@ function BulkUploadModal({showBulkUpload}) {
     }
 
     return (
-        <div id="top-right-modal" data-modal-placement="top-right" tabIndex="-1" class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
+        <div id="top-right-modal" data-modal-placement="top-right" tabIndex="-1" className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
             <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
             <div className="overflow-y-auto mr-4 w-1/3">
-                <div class="relative w-full max-w-2xl h-full md:h-auto shadow transform transition-all sm:my-4 sm:max-w-lg sm:w-full">
+                <div className="relative w-full max-w-2xl h-full md:h-auto shadow transform transition-all sm:my-4 sm:max-w-lg sm:w-full">
                     <form onSubmit={uploadFile}>
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div>
-                                <div class="flex justify-between items-center">
+                                <div className="flex justify-between items-center">
                                     <h3 className="text-xl leading-6 text-nunito-bold text-secondary" id="modal-title">Bulk Upload Students</h3>
-                                    <button onClick={cancelUpload} type="button" class="text-primary hover:text-alert-danger-dark rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
+                                    <button onClick={cancelUpload} type="button" className="text-primary hover:text-alert-danger-dark rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
                                         <Unicons.UilTimes size="18" />
                                     </button>
                                 </div>
