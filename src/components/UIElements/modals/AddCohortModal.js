@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
-import * as Unicons from '@iconscout/react-unicons';
 import { Transition } from '@headlessui/react'
+import * as Unicons from '@iconscout/react-unicons';
+import Datepicker from 'flowbite-datepicker/Datepicker';
+
 
 const courseOfferings = [
     {
@@ -31,15 +33,33 @@ const courseOfferings = [
     
 ]
 
-function AddCohortModal({showAddCohort}) {
+function AddCohortModal({showAddCohort, showAddCohortModal}) {
 
     const [selected, setSelected] = useState(courseOfferings[0]);
 
     let cancelAddCohort = () => showAddCohort();
+    let getStartDate = () => {
+        const datepickerEl = document.getElementById('cohortStartDate');
+        console.log(datepickerEl);
+        new Datepicker(datepickerEl, {
+            // options
+        }); 
+    }
+    
 
     return (
-        <div>            
-            <div className="relative z-30" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
+        <Transition
+        show={showAddCohortModal}
+        enter="transition-opacity duration-500"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-500"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+          <div>            
+            <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
                 <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
 
@@ -48,9 +68,9 @@ function AddCohortModal({showAddCohort}) {
                         <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                             <div className="pointer-events-auto relative w-screen max-w-md">
                                 <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
-                                    <button type="button" className="rounded-md text-gray-300 hover:text-alert-danger-dark focus:outline-none focus:ring-2 focus:ring-white">
-                                    <span className="sr-only">Close panel</span>
-                                    <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
+                                    <button type="button" className="rounded-md text-secondary hover:text-alert-danger-dark hover:scale-150 transition-all duration-300` focus:outline-none focus:ring-1 focus:ring-alert-danger-dark">
+                                        <span className="sr-only">Close panel</span>
+                                        <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
                                     </button>
                                 </div>
 
@@ -143,14 +163,14 @@ function AddCohortModal({showAddCohort}) {
                                                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                                     <Unicons.UilCalendarAlt size="18"  />
                                                                 </div>
-                                                                <input id="myDate" datepicker="true" name="start" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Start Date " />
+                                                                <input onClick={getStartDate} id="cohortStartDate" datepicker type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Start Date " />
                                                             </div>
                                                             
                                                             <div className="relative">
                                                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                                     <Unicons.UilCalendarAlt size="18"  />
                                                                 </div>
-                                                                <input datepicker="true" name="end" type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Graduation Date" />
+                                                                <input datepicker type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Graduation Date" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -158,7 +178,7 @@ function AddCohortModal({showAddCohort}) {
                                             </div>
                                         </div>        
                                     </div>
-                                    <button className="w-full bg-alert-success-light text-alert-success-dark uppercase px-6 py-4 text-md text-nunito-light">
+                                    <button className="w-full bg-secondary text-white hover:bg-secondary/20 hover:text-secondary transition-all duration-300 uppercase px-6 py-4 text-sm text-nunito-light">
                                         Add New Cohort
                                     </button>
                                 </div>
@@ -168,6 +188,9 @@ function AddCohortModal({showAddCohort}) {
                 </div>
             </div>
         </div>
+      </Transition>
+        
+        
     )
 }
 

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import CohortsList from './CohortsList';
 import CohortGraduates from './CohortGraduates';
@@ -15,7 +15,8 @@ function Cohorts({showAddCohort}) {
     
     let selectedCohort = cohort => setActiveCohort(cohort);
     let getActiveCohortNoOfGraduates = noOfGraduates => setActiveCohortNoOfGraduates(noOfGraduates);
-    let getActiveCohortGraduates = graduates =>     setActiveCohortGraduates(graduates)
+    let getActiveCohortGraduates = graduates => setActiveCohortGraduates(graduates)
+    
 
     return (
         <div className="h-full overflow-y-hidden">
@@ -24,7 +25,7 @@ function Cohorts({showAddCohort}) {
             </Helmet>
 
             {/* List of Cohorts */}
-            <CohortsList showAddCohort={showAddCohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates} />
+            <CohortsList showAddCohort={showAddCohort} activeCohort={activeCohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates} />
 
             <div className="flex flex-col h-full">
                  <div className="flex flex-wrap">

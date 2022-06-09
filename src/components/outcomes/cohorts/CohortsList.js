@@ -5,7 +5,7 @@ import * as Unicons from '@iconscout/react-unicons';
 import { useOutletContext } from "react-router-dom";
 
 
-function CohortsList({showAddCohortModal, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
+function CohortsList({showAddCohortModal, activeCohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
     
     const { setShowAddCohortModal } = useOutletContext();
 
@@ -15,6 +15,7 @@ function CohortsList({showAddCohortModal, selectedCohort, getActiveCohortNoOfGra
     // Toggle Sort Dropdown
     let toggleSortDropdown = () => setShowSortDropdown(!showSortDropdown)
     let handleAddCohort = () => setShowAddCohortModal(!showAddCohortModal);
+    
     
     // Fetch All Cohorts
     useEffect(() => {
@@ -87,7 +88,7 @@ function CohortsList({showAddCohortModal, selectedCohort, getActiveCohortNoOfGra
                 <ul className="flex flex-none -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                     {cohorts.map( cohort => (
                         <li  key={cohort.id} role="presentation">
-                            <CohortDetails cohort={cohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates} />
+                            <CohortDetails cohort={cohort} activeCohort={activeCohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates}   />
                         </li>        
                         ))
                     }

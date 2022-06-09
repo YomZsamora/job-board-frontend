@@ -31,7 +31,8 @@ function Outcomes({logout}) {
             
             {/* Modals */}
             { showBulkUploadModal ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null }
-            { showAddCohortModal ? <AddCohortModal showAddCohort={showAddCohort} /> : null }
+            {/* { showAddCohortModal ? <AddCohortModal showAddCohort={showAddCohort} /> : null } */}
+            <AddCohortModal showAddCohort={showAddCohort} showAddCohortModal={showAddCohortModal} />
         </div>
     )
 }

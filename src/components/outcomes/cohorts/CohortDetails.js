@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
 import calcDateDifference from '../../../services/dateDifference'
 
-function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
+function CohortDetails({cohort, activeCohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
     
     const end_date = new Date(cohort.end_date);
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -12,8 +12,9 @@ function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates, ge
     const [noOfGraduates, setNoOfGraduates] = useState("");
     const [cohortGraduates, setCohortGraduates] = useState([]);
 
+
     let showCohortDetails = () => {
-        selectedCohort(cohort);
+        selectedCohort(cohort); 
         getActiveCohortNoOfGraduates(noOfGraduates);
         getActiveCohortGraduates(cohortGraduates);
     }
@@ -34,10 +35,10 @@ function CohortDetails({cohort, selectedCohort, getActiveCohortNoOfGraduates, ge
     
 
     return (
-        <div>
+        <div className="relative">
             <div onClick={showCohortDetails} className={`${
-                                false ? 'bg-primary/5 border-t-2 border-secondary' : ''
-                                } hover:bg-primary/5 px-4 py-2 cursor-pointer w-52`} >
+                                activeCohort.id === cohort.id ? 'bg-gray-light' : ''
+                                } hover:bg-gray-light px-4 py-2 cursor-pointer w-52`} >
                 <div className="flex items-center justify-between">
                     <p className="text-primary text-nunito-bold text-sm">
                         <span className="mr-1">{cohort.cohort}</span> 
