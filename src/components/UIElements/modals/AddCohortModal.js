@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { Transition } from '@headlessui/react'
 import * as Unicons from '@iconscout/react-unicons';
+import { useForm } from "react-hook-form";
 import Datepicker from 'flowbite-datepicker/Datepicker';
 
 
@@ -34,17 +35,40 @@ const courseOfferings = [
 ]
 
 function AddCohortModal({showAddCohort, showAddCohortModal}) {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = formData => addNewCohort(formData);
 
-    const [selected, setSelected] = useState(courseOfferings[0]);
+    const [selected, setSelected] = useState('');
+    const [newCohort, setNewCohort] = useState({
+        courseOfferingname: selected,
+        courseOfferingID: "",
+        cohortStartDate: "",
+        cohortGraduationDate: "",
+    })
 
     let cancelAddCohort = () => showAddCohort();
-    let getStartDate = () => {
-        const datepickerEl = document.getElementById('cohortStartDate');
-        console.log(datepickerEl);
-        new Datepicker(datepickerEl, {
+    let handleChange = e => {
+        setNewCohort({
+            ...newCohort,
+            [e.target.name]: e.target.value,
+        })
+    }
+    let getCohortDates = () => {
+        const datepickerStartDate = document.getElementById('cohortStartDate');
+        const datepickerGraduationDate = document.getElementById('cohortGraduationDate');
+        new Datepicker(datepickerStartDate, {
             // options
         }); 
+        new Datepicker(datepickerGraduationDate, {
+            // options
+        });
     }
+
+    let addNewCohort = formData => {
+        console.log(formData.cohortGraduationDate);
+    }
+
+
     
 
     return (
@@ -57,7 +81,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
         leave="transition-opacity duration-500"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-      >
+        >
           <div>            
             <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
@@ -76,13 +100,13 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
 
                                 <div className="flex h-full flex-col justify-between overflow-y-scroll bg-white pt-6 shadow-xl">
                                     <div className="px-4 sm:px-6">
-                                        <h2 className="text-lg text-nunito-semiBold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
+                                        <h2 className="text-lg text-nunito-bold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
                                         <p className="text-nunito-regular text-xs text-primary/70">Note: Graduation date has to be provided for new Cohorts. Ongoing cohorts can't be added.</p>
                                     </div>
                                     <div className="relative mt-6 flex-1  sm:px-6">
                                         <div className="absolute inset-0 px-4 sm:px-6">
                                             <div className="h-full">
-                                                <form>
+                                                <form onSubmit={handleSubmit(onSubmit)}>
                                                     <div className="w-full">
                                                         <div className="mx-auto w-full max-w-md">
                                                             <p className="text-primary text-sm">Select Course Offering:</p>
@@ -131,7 +155,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                                 </div>
                                                                             </div>
                                                                             {checked && (
-                                                                                <div className="shrink-0 text-secondary items-center rounded-full bg-secondary/20 transition-all duration-300 hover:scale-[3.4] hover:-translate-x-1">
+                                                                                <div className="shrink-0 text-secondary items-center rounded-full bg-secondary/20">
                                                                                     <Unicons.UilCheck size="18"  />
                                                                                 </div>
                                                                             )}
@@ -145,13 +169,22 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                         </div>
                                                     </div>
 
-                                                    <div className="flex flex-col mt-10">
+                                                    <div className="flex flex-col mt-6">
                                                         <div className="flex">
-                                                            <button className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-xs text-nunito-regular text-center text-primary border border-primary-light rounded-l-md hover:bg-primary-light" type="button">
-                                                                SDF-FT-INT 
+                                                            <button className={`flex-shrink-0 z-10 inline-flex items-center py-2.5 px-2 text-xs text-nunito-regular text-center  ${ selected ? 'bg-primary text-secondary' : 'text-primary' } border border-primary-light rounded-l-md hover:bg-primary-light`} type="button">
+                                                                {selected ? selected.name : 'Course Offering'} 
                                                             </button>
                                                             <div className="relative w-full">
-                                                                <input type="text" className="block p-2.5 w-full z-20 text-sm text-primary bg-gray-50 rounded-r-lg border-l-gray-light border-l-2 border border-primary-light focus:outline-none" placeholder="Enter Course ID" required="" />
+                                                                <input 
+                                                                    {...register("courseOfferingID", { required: 'Please enter the Course ID. Should be a number!' })}
+                                                                    className={`block p-2.5 w-full z-20 text-primary bg-gray-50 rounded-r-lg border ${ errors.courseOfferingID ? 'border-alert-danger-dark text-[11px] placeholder-alert-danger-dark' : 'border-primary-light text-sm' }  focus:outline-none`}
+                                                                    type="text"
+                                                                    autoComplete="off"
+                                                                    placeholder={errors.courseOfferingID ? 'Please enter the Course ID. Should be a number!' : 'Enter Course ID'}
+                                                                    id="courseOfferingID"
+                                                                    name="courseOfferingID"
+                                                                    value={newCohort.courseOfferingID} 
+                                                                    onChange={handleChange} />
                                                             </div>
                                                         </div>
                                                         <div>
@@ -160,27 +193,48 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
 
                                                         <div className="flex items-center mt-4">
                                                             <div className="relative">
-                                                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <div className={`${errors.cohortStartDate ? 'text-alert-danger-dark' : ''} absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none`}>
                                                                     <Unicons.UilCalendarAlt size="18"  />
                                                                 </div>
-                                                                <input onClick={getStartDate} id="cohortStartDate" datepicker type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Start Date " />
+                                                                <input 
+                                                                    {...register("cohortStartDate", { required: 'Enter date Cohort started!' })}
+                                                                    className={`${errors.cohortStartDate ? 'placeholder-alert-danger-dark' : ''} text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none` }
+                                                                    onClick={getCohortDates} 
+                                                                    id="cohortStartDate" 
+                                                                    datepicker="true" 
+                                                                    type="text" 
+                                                                    placeholder={errors.cohortStartDate ? 'Enter Cohort Start Date!' : 'Cohort Start Date'}
+                                                                    name="cohortStartDate" 
+                                                                    value={newCohort.cohortStartDate}
+                                                                    onChange={handleChange} />
                                                             </div>
                                                             
                                                             <div className="relative">
-                                                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <div className={`${errors.cohortStartDate ? 'text-alert-danger-dark' : ''} absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none`}>
                                                                     <Unicons.UilCalendarAlt size="18"  />
                                                                 </div>
-                                                                <input datepicker type="text" className="text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none" placeholder="Graduation Date" />
+                                                                <input 
+                                                                    {...register("cohortGraduationDate", { required: 'Enter date Cohort started!' })}
+                                                                    className={`${errors.cohortGraduationDate ? 'placeholder-alert-danger-dark' : ''} text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none`} 
+                                                                    onClick={getCohortDates} 
+                                                                    id="cohortGraduationDate" 
+                                                                    datepicker="true" 
+                                                                    type="text" 
+                                                                    placeholder={errors.cohortGraduationDate ? 'Enter Graduation Date!' : 'Cohort Start Date'} 
+                                                                    name="cohortGraduationDate"
+                                                                    value={newCohort.cohortGraduationDate}
+                                                                    onChange={handleChange} />
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <button className="w-full mt-8 bg-secondary text-white hover:bg-secondary/20 hover:text-secondary transition-all duration-300 uppercase px-6 py-2 text-xs text-nunito-light">
+                                                        Add New Cohort
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>        
                                     </div>
-                                    <button className="w-full bg-secondary text-white hover:bg-secondary/20 hover:text-secondary transition-all duration-300 uppercase px-6 py-4 text-sm text-nunito-light">
-                                        Add New Cohort
-                                    </button>
+                                    
                                 </div>
                             </div>
                         </div>

@@ -3,9 +3,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/flowbite/**/*.js",
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
       white: '#ffffff',
       gray: "#F0F0F0",
       'gray-dark': '#6C7583',
