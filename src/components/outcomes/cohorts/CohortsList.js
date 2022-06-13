@@ -1,33 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import apiClient from '../../../services/api';
+import React, { useState } from 'react';
 import CohortDetails from './CohortDetails';
 import * as Unicons from '@iconscout/react-unicons';
 import { useOutletContext } from "react-router-dom";
 
 
-function CohortsList({showAddCohortModal, activeCohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
-    
-    const { setShowAddCohortModal } = useOutletContext();
+function CohortsList({cohorts, showAddCohortModal, activeCohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
 
-    const [cohorts, setCohorts] = useState([]);
+    const { setShowAddCohortModal } = useOutletContext();
     const [showSortDropdown, setShowSortDropdown] = useState(false)
 
     // Toggle Sort Dropdown
     let toggleSortDropdown = () => setShowSortDropdown(!showSortDropdown)
     let handleAddCohort = () => setShowAddCohortModal(!showAddCohortModal);
     
-    
-    // Fetch All Cohorts
-    useEffect(() => {
-        apiClient.get('http://localhost/sanctum/csrf-cookie')
-        .then(response => {
-            apiClient.get('http://localhost/api/get_cohorts')
-            .then(response => {
-                setCohorts(response.data.cohorts);
-                selectedCohort(response.data.cohorts[0]);
-            })
-        });
-    }, []);
 
     return (
         <div >

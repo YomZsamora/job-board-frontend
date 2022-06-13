@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { Transition } from '@headlessui/react'
 import * as Unicons from '@iconscout/react-unicons';
@@ -35,10 +35,26 @@ const courseOfferings = [
 ]
 
 function AddCohortModal({showAddCohort, showAddCohortModal}) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = formData => addNewCohort(formData);
+        const { register, handleSubmit, reset, formState: { errors } } = useForm();
+        const onSubmit = (formData, e) => {
+            if(selected === "") {
+                setInvalidCourseName(true) // Display error for invalid Course Name
+            }
+            else if(/^[0-9]+$/.test(formData.courseOfferingID)) { // Check if Course Offering ID contains digits
+                setInvalidCourseID(false)  
+                setInvalidCourseName(false)
+                addNewCohort(formData);
+                setNewCohort({ courseOfferingname: selected, courseOfferingID: "", cohortStartDate: "", cohortGraduationDate: "" })
+                reset();
+            } else {
+                setInvalidCourseName(false)
+                setInvalidCourseID(true) // Display error for invalid Course ID
+            }
+        }
 
     const [selected, setSelected] = useState('');
+    const [invalidCourseID, setInvalidCourseID] =useState(false);
+    const [invalidCourseName, setInvalidCourseName] =useState(false);
     const [newCohort, setNewCohort] = useState({
         courseOfferingname: selected,
         courseOfferingID: "",
@@ -46,26 +62,29 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
         cohortGraduationDate: "",
     })
 
+    // Cancel Add New Cohort and Close Add New Cohort Modal
     let cancelAddCohort = () => showAddCohort();
+
+    // Updating state according to input values
     let handleChange = e => {
         setNewCohort({
             ...newCohort,
             [e.target.name]: e.target.value,
         })
     }
+
+    // Setting up Date Pickers for Start Date and Graduation Date for New Cohort
     let getCohortDates = () => {
         const datepickerStartDate = document.getElementById('cohortStartDate');
         const datepickerGraduationDate = document.getElementById('cohortGraduationDate');
-        new Datepicker(datepickerStartDate, {
-            // options
-        }); 
-        new Datepicker(datepickerGraduationDate, {
-            // options
-        });
+        new Datepicker(datepickerStartDate, {}); 
+        new Datepicker(datepickerGraduationDate, {});
     }
 
+
+    // Submit and POST form data to server/backend
     let addNewCohort = formData => {
-        console.log(formData.cohortGraduationDate);
+        console.log(selected);
     }
 
 
@@ -99,6 +118,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                 </div>
 
                                 <div className="flex h-full flex-col justify-between overflow-y-scroll bg-white pt-6 shadow-xl">
+                                {/* { userDoesntExists ?  <AlertDanger message={error} /> : <p></p> } */}
                                     <div className="px-4 sm:px-6">
                                         <h2 className="text-lg text-nunito-bold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
                                         <p className="text-nunito-regular text-xs text-primary/70">Note: Graduation date has to be provided for new Cohorts. Ongoing cohorts can't be added.</p>
@@ -106,10 +126,11 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                     <div className="relative mt-6 flex-1  sm:px-6">
                                         <div className="absolute inset-0 px-4 sm:px-6">
                                             <div className="h-full">
-                                                <form onSubmit={handleSubmit(onSubmit)}>
+                                                <form id="create-cohort-form" onSubmit={handleSubmit(onSubmit)}>
                                                     <div className="w-full">
                                                         <div className="mx-auto w-full max-w-md">
                                                             <p className="text-primary text-sm">Select Course Offering:</p>
+                                                            { invalidCourseName ? <p className="text-alert-danger-dark text-xs mt-1">Please Select a Course Offering.</p> : null }
                                                             <RadioGroup value={selected} onChange={setSelected}>
                                                                 <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
                                                                 <div className="space-y-2">
@@ -178,7 +199,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                 <input 
                                                                     {...register("courseOfferingID", { required: 'Please enter the Course ID. Should be a number!' })}
                                                                     className={`block p-2.5 w-full z-20 text-primary bg-gray-50 rounded-r-lg border ${ errors.courseOfferingID ? 'border-alert-danger-dark text-[11px] placeholder-alert-danger-dark' : 'border-primary-light text-sm' }  focus:outline-none`}
-                                                                    type="text"
+                                                                    number="text"
                                                                     autoComplete="off"
                                                                     placeholder={errors.courseOfferingID ? 'Please enter the Course ID. Should be a number!' : 'Enter Course ID'}
                                                                     id="courseOfferingID"
@@ -187,6 +208,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                     onChange={handleChange} />
                                                             </div>
                                                         </div>
+                                                        { invalidCourseID ? <p className="text-alert-danger-dark text-xs mt-1">Invalid Course ID! Course Offering ID shouldn't contain text.</p> : null }
                                                         <div>
                                                             <small className="mt-1 text-xs text-gray-dark">e.g SDC47, DSF-PT1, SDF-FT3, DSC12, SDF-FT-INT2.</small>
                                                         </div>
@@ -201,10 +223,13 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                     className={`${errors.cohortStartDate ? 'placeholder-alert-danger-dark' : ''} text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none` }
                                                                     onClick={getCohortDates} 
                                                                     id="cohortStartDate" 
-                                                                    datepicker="true" 
+                                                                    datepicker="true"
+                                                                    datepicker-autohide="true"
                                                                     type="text" 
+                                                                    autoComplete="off"
                                                                     placeholder={errors.cohortStartDate ? 'Enter Cohort Start Date!' : 'Cohort Start Date'}
                                                                     name="cohortStartDate" 
+                                                                    selected={newCohort.cohortStartDate}
                                                                     value={newCohort.cohortStartDate}
                                                                     onChange={handleChange} />
                                                             </div>
@@ -218,16 +243,19 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                     className={`${errors.cohortGraduationDate ? 'placeholder-alert-danger-dark' : ''} text-primary block w-full pl-10 p-2.5 text-xs focus:outline-none`} 
                                                                     onClick={getCohortDates} 
                                                                     id="cohortGraduationDate" 
-                                                                    datepicker="true" 
+                                                                    datepicker="true"
+                                                                    datepicker-autohide="true"
                                                                     type="text" 
+                                                                    autoComplete="off"
                                                                     placeholder={errors.cohortGraduationDate ? 'Enter Graduation Date!' : 'Cohort Start Date'} 
                                                                     name="cohortGraduationDate"
+                                                                    selected={newCohort.cohortGraduationDate}
                                                                     value={newCohort.cohortGraduationDate}
                                                                     onChange={handleChange} />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button className="w-full mt-8 bg-secondary text-white hover:bg-secondary/20 hover:text-secondary transition-all duration-300 uppercase px-6 py-2 text-xs text-nunito-light">
+                                                    <button className="flex flex-col items-center w-full mt-8 bg-secondary text-white hover:bg-secondary/20 hover:text-primary transition-all duration-300 uppercase px-6 py-2 text-xs text-nunito-light">
                                                         Add New Cohort
                                                     </button>
                                                 </form>

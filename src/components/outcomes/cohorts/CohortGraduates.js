@@ -7,7 +7,7 @@ import CohortGraduatesList from './CohortGraduatesList';
 
 function CohortGraduates({activeCohort, activeCohortNoOfGraduates, activeCohortGraduates}) {
 
-    console.log(activeCohortGraduates);
+    // console.log(activeCohort);
     const timeSinceGraduation = calcDateDifference(activeCohort.end_date);
 
     return (
