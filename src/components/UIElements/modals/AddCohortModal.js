@@ -4,53 +4,26 @@ import { Transition } from '@headlessui/react'
 import * as Unicons from '@iconscout/react-unicons';
 import { useForm } from "react-hook-form";
 import Datepicker from 'flowbite-datepicker/Datepicker';
+import courseOfferings from '../../../data/courseOfferings';
 
-
-const courseOfferings = [
-    {
-        name: 'SDC',
-        description: 'Software Development (Legacy)',
-    },
-    {
-        name: 'SDF-FT',
-        description: 'Software Development Flatiron - Full-Time',
-    },
-    {
-        name: 'SDF-FT-INT',
-        description: 'Software Development Flatiron - Full-Time - International',
-    },
-    {
-        name: 'DSC',
-        description: 'Data Science (Legacy)',
-    },
-    {
-        name: 'DSF-FT',
-        description: 'Data Science Flatiron - Full-Time',
-    },
-    {
-        name: 'DSF-PT',
-        description: 'Data Science Flatiron - Part-Time',
-    },
-    
-]
 
 function AddCohortModal({showAddCohort, showAddCohortModal}) {
-        const { register, handleSubmit, reset, formState: { errors } } = useForm();
-        const onSubmit = (formData, e) => {
-            if(selected === "") {
-                setInvalidCourseName(true) // Display error for invalid Course Name
-            }
-            else if(/^[0-9]+$/.test(formData.courseOfferingID)) { // Check if Course Offering ID contains digits
-                setInvalidCourseID(false)  
-                setInvalidCourseName(false)
-                addNewCohort(formData);
-                setNewCohort({ courseOfferingname: selected, courseOfferingID: "", cohortStartDate: "", cohortGraduationDate: "" })
-                reset();
-            } else {
-                setInvalidCourseName(false)
-                setInvalidCourseID(true) // Display error for invalid Course ID
-            }
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const onSubmit = (formData, e) => {
+        if(selected === "") {
+            setInvalidCourseName(true) // Display error for invalid Course Name
         }
+        else if(/^[0-9]+$/.test(formData.courseOfferingID)) { // Check if Course Offering ID contains digits
+            setInvalidCourseID(false)  
+            setInvalidCourseName(false)
+            addNewCohort(formData);
+            setNewCohort({ courseOfferingname: selected, courseOfferingID: "", cohortStartDate: "", cohortGraduationDate: "" })
+            reset();
+        } else {
+            setInvalidCourseName(false)
+            setInvalidCourseID(true) // Display error for invalid Course ID
+        }
+    }
 
     const [selected, setSelected] = useState('');
     const [invalidCourseID, setInvalidCourseID] =useState(false);
@@ -84,7 +57,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
 
     // Submit and POST form data to server/backend
     let addNewCohort = formData => {
-        console.log(selected);
+        
     }
 
 
