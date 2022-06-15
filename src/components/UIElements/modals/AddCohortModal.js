@@ -47,7 +47,12 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
     // Cancel Add New Cohort and Close Add New Cohort Modal
     let cancelAddCohort = () => {
         showAddCohort();
-        setToggleSuccessModal(!toggleSuccessModal);
+        setToggleSuccessModal(false);
+    }
+
+    let closeSuccessModal = () => {
+        cancelAddCohort();
+        window.location.reload();
     }
 
     // Updating state according to input values
@@ -115,9 +120,9 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                                 <div className="pointer-events-auto relative w-screen max-w-md">
                                     <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
-                                        <button type="button" className={`${ toggleFormModal ? 'block' : 'hidden' } rounded-md text-secondary hover:text-alert-danger-dark hover:scale-150 transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-alert-danger-dark`}>
+                                        <button onClick={cancelAddCohort} type="button" className={`${ toggleFormModal ? 'block' : 'hidden' } rounded-md text-secondary hover:text-alert-danger-dark hover:scale-150 transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-alert-danger-dark`}>
                                             <span className="sr-only">Close panel</span>
-                                            <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
+                                            <Unicons.UilTimes size="18"  />
                                         </button>
                                     </div>
                                     
@@ -125,7 +130,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                     <div class={`${ toggleSuccessModal ? 'block' : 'hidden' }  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex`}>
                                         <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                <button onClick={cancelAddCohort} type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:text-alert-danger-dark hover:scale-150 transition-all duration-300" data-modal-toggle="popup-modal">
+                                                <button onClick={closeSuccessModal} type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:text-alert-danger-dark hover:scale-150 transition-all duration-300" data-modal-toggle="popup-modal">
                                                 <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
                                                 </button>
                                                 <div class="p-6 text-center">
@@ -134,7 +139,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                     <button type="button" class="text-white bg-alert-success-dark hover:bg-alert-success-light hover:text-alert-success-dark focus:outline-none text-nunito-semiBold rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                                         Yes, Upload!
                                                     </button>
-                                                    <button onClick={cancelAddCohort} type="button" class="text-alert-danger-dark bg-white hover:bg-alert-danger-dark hover:text-white border border-alert-danger-dark focus:outline-none rounded-lg text-sm text-nunito-semiBold px-5 py-2.5 focus:z-10">No, cancel</button>
+                                                    <button onClick={closeSuccessModal} type="button" class="text-alert-danger-dark bg-white hover:bg-alert-danger-dark hover:text-white border border-alert-danger-dark focus:outline-none rounded-lg text-sm text-nunito-semiBold px-5 py-2.5 focus:z-10">No, cancel</button>
                                                 </div>
                                             </div>
                                         </div>
