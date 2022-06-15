@@ -7,7 +7,6 @@ import CohortGraduates from './CohortGraduates';
 
 
 
-
 function Cohorts({showAddCohort}) {
 
     const [activeCohort, setActiveCohort] = useState([]);

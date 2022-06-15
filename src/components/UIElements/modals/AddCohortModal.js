@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import apiClient from '../../../services/api';
 import { RadioGroup } from '@headlessui/react'
 import { Transition } from '@headlessui/react'
@@ -6,6 +6,7 @@ import * as Unicons from '@iconscout/react-unicons';
 import { useForm } from "react-hook-form";
 import Datepicker from 'flowbite-datepicker/Datepicker';
 import courseOfferings from '../../../data/courseOfferings';
+import AlertDanger from '../Alerts/AlertDanger';
 
 
 function AddCohortModal({showAddCohort, showAddCohortModal}) {
@@ -14,21 +15,28 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
         if(selected === "") {
             setInvalidCourseName(true) // Display error for invalid Course Name
         }
-        else if(/^[0-9]+$/.test(formData.courseOfferingID)) { // Check if Course Offering ID contains digits
+        else if(/^[0-9/-]+$/.test(formData.courseOfferingID)) { // Check if Course Offering ID contains digits
             setInvalidCourseID(false)  
             setInvalidCourseName(false)
+            setCohortDoesntExists({found: false, alertMessage: ""})
             addNewCohort(formData);
             setNewCohort({ courseOfferingname: selected, courseOfferingID: "", cohortStartDate: "", cohortGraduationDate: "" })
             reset();
         } else {
             setInvalidCourseName(false)
+            setCohortDoesntExists({found: false, alertMessage: ""})
             setInvalidCourseID(true) // Display error for invalid Course ID
         }
     }
 
+    
+
     const [selected, setSelected] = useState('');
+    const [cohortDoesntExists, setCohortDoesntExists] = useState({ found: false, alertMessage: ""});
     const [invalidCourseID, setInvalidCourseID] =useState(false);
     const [invalidCourseName, setInvalidCourseName] =useState(false);
+    const [toggleSuccessModal, setToggleSuccessModal] = useState(false); // Toggle between form for adding new Cohort and the Success Modal
+    const [toggleFormModal, setToggleFormModal] = useState(true);
     const [newCohort, setNewCohort] = useState({
         courseOfferingname: selected,
         courseOfferingID: "",
@@ -37,7 +45,10 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
     })
 
     // Cancel Add New Cohort and Close Add New Cohort Modal
-    let cancelAddCohort = () => showAddCohort();
+    let cancelAddCohort = () => {
+        showAddCohort();
+        setToggleSuccessModal(!toggleSuccessModal);
+    }
 
     // Updating state according to input values
     let handleChange = e => {
@@ -46,6 +57,10 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
             [e.target.name]: e.target.value,
         })
     }
+
+    useEffect(() => {
+        setToggleFormModal(true);
+    }, [toggleFormModal])
 
     // Setting up Date Pickers for Start Date and Graduation Date for New Cohort
     let getCohortDates = () => {
@@ -61,27 +76,23 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
             apiClient.post('http://localhost/api/add_new_cohort', {
-                course
-                email: formData.email,
-                password: formData.password
+                courseOfferingname: selected.name,
+                courseOfferingID: formData.courseOfferingID,
+                cohortStartDate: formData.cohortStartDate,
+                cohortGraduationDate: formData.cohortGraduationDate
             })
             .then(response => {
-                // console.log(response);
-                if(response.data.status === 422){
-                    setUserDoesntExists(true);
-                    setError(response.data.errorMessage);
-                    setloginPreloader(false);
-                } else {
-                    setUserDoesntExists(false);
-                    login(response.data);
-                    setloginPreloader(false);
-                }
+                if(response.data.status === 200) {
+                    setToggleSuccessModal(!toggleSuccessModal);
+                    setToggleFormModal(false)
+
+                } else if(response.data.status === 422) {
+                    setCohortDoesntExists({found: true, alertMessage: response.data.message})
+                    setInvalidCourseID(false)
+                } 
             })
         });
     }
-
-
-    
 
     return (
 
@@ -104,14 +115,33 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                                 <div className="pointer-events-auto relative w-screen max-w-md">
                                     <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
-                                        <button type="button" className="rounded-md text-secondary hover:text-alert-danger-dark hover:scale-150 transition-all duration-300` focus:outline-none focus:ring-1 focus:ring-alert-danger-dark">
+                                        <button type="button" className={`${ toggleFormModal ? 'block' : 'hidden' } rounded-md text-secondary hover:text-alert-danger-dark hover:scale-150 transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-alert-danger-dark`}>
                                             <span className="sr-only">Close panel</span>
                                             <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
                                         </button>
                                     </div>
+                                    
+                                    {/* Success Modal  */}
+                                    <div class={`${ toggleSuccessModal ? 'block' : 'hidden' }  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex`}>
+                                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                <button onClick={cancelAddCohort} type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:text-alert-danger-dark hover:scale-150 transition-all duration-300" data-modal-toggle="popup-modal">
+                                                <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
+                                                </button>
+                                                <div class="p-6 text-center">
+                                                    <Unicons.UilCheck class="mx-auto mb-4 text-alert-success-dark rounded-full ring-4 ring-alert-success-dark" size="36"  />
+                                                    <h3 class="mb-5 text-sm text-primary">DSF-PT3 has been Added Successfully! Do you want to add the Graduates now?</h3>
+                                                    <button type="button" class="text-white bg-alert-success-dark hover:bg-alert-success-light hover:text-alert-success-dark focus:outline-none text-nunito-semiBold rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                        Yes, Upload!
+                                                    </button>
+                                                    <button onClick={cancelAddCohort} type="button" class="text-alert-danger-dark bg-white hover:bg-alert-danger-dark hover:text-white border border-alert-danger-dark focus:outline-none rounded-lg text-sm text-nunito-semiBold px-5 py-2.5 focus:z-10">No, cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <div className="flex h-full flex-col justify-between overflow-y-scroll bg-white pt-6 shadow-xl">
-                                    {/* { userDoesntExists ?  <AlertDanger message={error} /> : <p></p> } */}
+                                    {/* Form Modal */}
+                                    <div className={`${ toggleFormModal ? 'block' : 'hidden' } flex h-full flex-col justify-between overflow-y-scroll bg-white pt-6 shadow-xl opacity-100`}>
                                         <div className="px-4 sm:px-6">
                                             <h2 className="text-lg text-nunito-bold text-primary uppercase" id="slide-over-title">Add a New Cohort</h2>
                                             <p className="text-nunito-regular text-xs text-primary/70">Note: Graduation date has to be provided for new Cohorts. Ongoing cohorts can't be added.</p>
@@ -201,9 +231,12 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                         onChange={handleChange} />
                                                                 </div>
                                                             </div>
-                                                            { invalidCourseID ? <p className="text-alert-danger-dark text-xs mt-1">Invalid Course ID! Course Offering ID shouldn't contain text.</p> : null }
+                                                            { invalidCourseID ? <p className="text-alert-danger-dark text-xs mt-1">Invalid Course ID! Course Offering ID should only contain digits, "/" or "-".</p> : null }
                                                             <div>
-                                                                <small className="mt-1 text-xs text-gray-dark">e.g SDC47, DSF-PT1, SDF-FT3, DSC12, SDF-FT-INT2.</small>
+                                                                { cohortDoesntExists.found ? 
+                                                                    <AlertDanger message={cohortDoesntExists.alertMessage} /> : 
+                                                                    <small className="mt-1 text-xs text-gray-dark">e.g SDC47, DSF-PT1, SDF-FT3, DSC12, SDF-FT-INT2.</small> 
+                                                                }
                                                             </div>
 
                                                             <div className="flex items-center mt-4">
@@ -240,7 +273,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                                                         datepicker-autohide="true"
                                                                         type="text" 
                                                                         autoComplete="off"
-                                                                        placeholder={errors.cohortGraduationDate ? 'Enter Graduation Date!' : 'Cohort Start Date'} 
+                                                                        placeholder={errors.cohortGraduationDate ? 'Enter Graduation Date!' : 'Graduation Date'} 
                                                                         name="cohortGraduationDate"
                                                                         selected={newCohort.cohortGraduationDate}
                                                                         value={newCohort.cohortGraduationDate}
