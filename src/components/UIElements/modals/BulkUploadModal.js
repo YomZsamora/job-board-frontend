@@ -71,15 +71,15 @@ function BulkUploadModal({showBulkUpload}) {
 
     return (
         <div id="top-right-modal" data-modal-placement="top-right" tabIndex="-1" className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-end items-start flex">
-            <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
-            <div className="overflow-y-auto mr-4 w-1/3">
-                <div className="relative w-full max-w-2xl h-full md:h-auto shadow transform transition-all sm:my-4 sm:max-w-lg sm:w-full">
+            <div className="fixed inset-0 bg-primary-light bg-opacity-40 transition-opacity"></div>
+            <div className="overflow-y-auto w-1/3">
+                <div className="relative w-full max-w-2xl h-full md:h-auto shadow transform transition-all sm:max-w-lg sm:w-full">
                     <form onSubmit={uploadFile}>
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div>
                                 <div className="flex justify-between items-center">
                                     <h3 className="text-xl leading-6 text-nunito-bold text-secondary" id="modal-title">Bulk Upload Students</h3>
-                                    <button onClick={cancelUpload} type="button" className="text-primary hover:text-alert-danger-dark rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
+                                    <button onClick={cancelUpload} type="button" className="text-primary hover:text-alert-danger-dark hover:scale-150 transition-all duration-300 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
                                         <Unicons.UilTimes size="18" />
                                     </button>
                                 </div>
@@ -87,7 +87,7 @@ function BulkUploadModal({showBulkUpload}) {
                                 {/* <h3 className="text-xl leading-6 text-nunito-bold text-secondary" id="modal-title">Bulk Upload Students</h3> */}
                                     <div className="mt-2 text-primary">
                                         <h3 className="text-md leading-6 text-nunito-bold" id="modal-title">How to Upload</h3>
-                                        <ol className="list-decimal pl-4 mt-2 text-xs">
+                                        <ol className="list-decimal pl-4 my-2 text-xs">
                                             <li>Download a <a className="text-secondary" href="https://docs.google.com/spreadsheets/d/13asalRfHUTazUezfYMmqrM3-gBgEIJUdKiEfBYpPUAM/edit?usp=sharing" target="_blank" rel="noreferrer">template here</a>.</li>
                                             <li>Add your data to the template. <br></br> <span className="italic">Using excel make sure to export or save as .csv</span></li>
                                             <li>Upload below for processing.</li>

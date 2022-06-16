@@ -11,9 +11,9 @@ const people = [
     { id: 6, name: 'Hellen Schmidt' },
 ]
 
-function CohortGraduatesSearch({activeCohortGraduates}) {
+function CohortGraduatesSearch({activeCohortGraduates, selectedGraduate}) {
     
-    const [selected, setSelected] = useState({ id: 1, name: 'Wade Cooper' })
+    const [selected, setSelected] = useState({ id: 1, first_name: 'Search for', last_name: 'Graduate...' })
     const [query, setQuery] = useState('')
 
     useEffect(() => {
@@ -34,7 +34,11 @@ function CohortGraduatesSearch({activeCohortGraduates}) {
                 .includes(query.toLowerCase().replace(/\s+/g, ''))
         )
 
-        console.log(selected)
+    let handleGraduateSelect = graduate => {
+        setSelected(graduate)
+        selectedGraduate(graduate)
+    }
+
     return (
         <div>
             <Combobox value={selected} onChange={setSelected}>
@@ -56,7 +60,7 @@ function CohortGraduatesSearch({activeCohortGraduates}) {
                         leaveTo="opacity-0"
                         afterLeave={() => setQuery('')}
                     >
-                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-sm bg-white py-1 text-xs shadow-lg focus:outline-none sm:text-sm">
+                        <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-sm bg-white py-1 text-xs shadow-lg focus:outline-none sm:text-sm">
                         {filteredActiveCohortGraduates.length === 0 && query !== '' ? (
                             <div className="relative cursor-default select-none py-2 px-4 text-primary text-sm text-alert-danger-dark">
                             Graduate Not Found.
@@ -71,7 +75,7 @@ function CohortGraduatesSearch({activeCohortGraduates}) {
                                 }`
                                 }
                                 value={graduate}
-                                onClick={() => setSelected(graduate)}
+                                onClick={() => handleGraduateSelect(graduate)}
                             >
                                 {({ selected, active }) => (
                                 <>

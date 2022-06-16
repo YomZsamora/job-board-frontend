@@ -7,7 +7,7 @@ import CohortGraduates from './CohortGraduates';
 
 
 
-function Cohorts({showAddCohort}) {
+function Cohorts({showAddCohort, showBulkUpload}) {
 
     const [activeCohort, setActiveCohort] = useState([]);
     const [cohorts, setCohorts] = useState([]);
@@ -39,7 +39,7 @@ function Cohorts({showAddCohort}) {
                  <div className="flex flex-wrap">
                     <div className="md:w-5/12">
                         {/* Cohort Graduates Details and Information */}
-                        <CohortGraduates activeCohort={activeCohort}  />
+                        <CohortGraduates activeCohort={activeCohort} showBulkUpload={showBulkUpload}  />
                     </div>
                     <div className="md:flex-1">
                         {/* General Cohort Stats */}                        

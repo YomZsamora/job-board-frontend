@@ -113,7 +113,7 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
             <div>            
                 <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
-                    <div className="fixed inset-0 bg-primary-light bg-opacity-20 transition-opacity"></div>
+                    <div className="fixed inset-0 bg-primary-light bg-opacity-40 transition-opacity"></div>
 
                     <div className="fixed inset-0 overflow-hidden">
                         <div className="absolute inset-0 overflow-hidden">
@@ -127,19 +127,19 @@ function AddCohortModal({showAddCohort, showAddCohortModal}) {
                                     </div>
                                     
                                     {/* Success Modal  */}
-                                    <div class={`${ toggleSuccessModal ? 'block' : 'hidden' }  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex`}>
-                                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                <button onClick={closeSuccessModal} type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:text-alert-danger-dark hover:scale-150 transition-all duration-300" data-modal-toggle="popup-modal">
+                                    <div className={`${ toggleSuccessModal ? 'block' : 'hidden' }  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex`}>
+                                        <div className="relative p-4 w-full max-w-md h-full md:h-auto">
+                                            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                <button onClick={closeSuccessModal} type="button" className="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:text-alert-danger-dark hover:scale-150 transition-all duration-300" data-modal-toggle="popup-modal">
                                                 <Unicons.UilTimes onClick={cancelAddCohort} size="18"  />
                                                 </button>
-                                                <div class="p-6 text-center">
-                                                    <Unicons.UilCheck class="mx-auto mb-4 text-alert-success-dark rounded-full ring-4 ring-alert-success-dark" size="36"  />
-                                                    <h3 class="mb-5 text-sm text-primary">DSF-PT3 has been Added Successfully! Do you want to add the Graduates now?</h3>
-                                                    <button type="button" class="text-white bg-alert-success-dark hover:bg-alert-success-light hover:text-alert-success-dark focus:outline-none text-nunito-semiBold rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                <div className="p-6 text-center">
+                                                    <Unicons.UilCheck className="mx-auto mb-4 text-alert-success-dark rounded-full ring-4 ring-alert-success-dark" size="36"  />
+                                                    <h3 className="mb-5 text-sm text-primary">DSF-PT3 has been Added Successfully! Do you want to add the Graduates now?</h3>
+                                                    <button type="button" className="text-white bg-alert-success-dark hover:bg-alert-success-light hover:text-alert-success-dark focus:outline-none text-nunito-semiBold rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                                         Yes, Upload!
                                                     </button>
-                                                    <button onClick={closeSuccessModal} type="button" class="text-alert-danger-dark bg-white hover:bg-alert-danger-dark hover:text-white border border-alert-danger-dark focus:outline-none rounded-lg text-sm text-nunito-semiBold px-5 py-2.5 focus:z-10">No, cancel</button>
+                                                    <button onClick={closeSuccessModal} type="button" className="text-alert-danger-dark bg-white hover:bg-alert-danger-dark hover:text-white border border-alert-danger-dark focus:outline-none rounded-lg text-sm text-nunito-semiBold px-5 py-2.5 focus:z-10">No, cancel</button>
                                                 </div>
                                             </div>
                                         </div>

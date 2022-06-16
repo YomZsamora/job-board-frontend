@@ -58,7 +58,7 @@ function CohortsList({cohorts, showAddCohortModal, activeCohort, selectedCohort}
                     </div>
                     <button onClick={handleAddCohort} type="button" className="group text-alert-success-dark bg-alert-success-light uppercase text-nunito-light rounded-sm text-xs px-4 py-1.5 h-fit text-center inline-flex items-center ">
                         <Unicons.UilPlus size="18" />
-                        <span className="pl-2 hidden transition duration-300 group-hover:block">Add New Cohort</span>
+                        <span className="pl-2 hidden duration-300 group-hover:block">Add New Cohort</span>
                     </button>
                 </div>
             </div>

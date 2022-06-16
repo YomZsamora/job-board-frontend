@@ -25,13 +25,12 @@ function Outcomes({logout}) {
                 <div className="w-full h-screen overflow-y-auto">
                     <Navbar logout={logout} showBulkUpload={showBulkUpload} />
                     {/* Outcomes Main Components */}
-                    <Outlet context={{ setShowAddCohortModal }} />
+                    <Outlet context={{ setShowAddCohortModal, setShowBulkUploadModal }}  />
                 </div>
             </div>
             
             {/* Modals */}
             { showBulkUploadModal ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null }
-            {/* { showAddCohortModal ? <AddCohortModal showAddCohort={showAddCohort} /> : null } */}
             <AddCohortModal showAddCohort={showAddCohort} showAddCohortModal={showAddCohortModal} />
         </div>
     )

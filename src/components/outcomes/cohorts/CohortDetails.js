@@ -45,7 +45,7 @@ function CohortDetails({cohort, activeCohort, selectedCohort}) {
                     </p>
                 </div>
                 <div className="flex flex-col items-start">
-                    <span className="text-primary text-[11px]">{noOfGraduates + ' Graduates'} </span>
+                    <span className={`${noOfGraduates === 0 ? 'text-alert-danger-dark' : 'text-primary'}  text-[11px]`}>{noOfGraduates === 0 ? 'Graduates Not Added' : noOfGraduates + ' Graduates'} </span>
                     <span className="text-[10px] text-nunito-light text-primary/70">{cohort_end_date} ({timeSinceGraduation})</span>
                 </div>
             </div>
