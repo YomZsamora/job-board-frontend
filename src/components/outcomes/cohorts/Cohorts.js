@@ -10,13 +10,9 @@ import CohortGraduates from './CohortGraduates';
 function Cohorts({showAddCohort}) {
 
     const [activeCohort, setActiveCohort] = useState([]);
-    const [activeCohortGraduates, setActiveCohortGraduates] = useState([]);
-    const [activeCohortNoOfGraduates, setActiveCohortNoOfGraduates] = useState(0);
     const [cohorts, setCohorts] = useState([]);
     
     let selectedCohort = cohort => setActiveCohort(cohort);
-    let getActiveCohortNoOfGraduates = noOfGraduates => setActiveCohortNoOfGraduates(noOfGraduates);
-    let getActiveCohortGraduates = graduates => setActiveCohortGraduates(graduates)
     
     // Fetch All Cohorts
     useEffect(() => {
@@ -27,7 +23,7 @@ function Cohorts({showAddCohort}) {
                 setCohorts(response.data.cohorts);
                 selectedCohort(response.data.cohorts[0]);
             })
-        });
+        })
     }, []);
 
     return (
@@ -37,13 +33,13 @@ function Cohorts({showAddCohort}) {
             </Helmet>
 
             {/* List of Cohorts */}
-            <CohortsList cohorts={cohorts} showAddCohort={showAddCohort} activeCohort={activeCohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates} />
+            <CohortsList cohorts={cohorts} showAddCohort={showAddCohort} activeCohort={activeCohort} selectedCohort={selectedCohort}  />
 
             <div className="flex flex-col h-full">
                  <div className="flex flex-wrap">
                     <div className="md:w-5/12">
                         {/* Cohort Graduates Details and Information */}
-                        <CohortGraduates activeCohort={activeCohort} activeCohortNoOfGraduates={activeCohortNoOfGraduates} activeCohortGraduates={activeCohortGraduates} />
+                        <CohortGraduates activeCohort={activeCohort}  />
                     </div>
                     <div className="md:flex-1">
                         {/* General Cohort Stats */}                        

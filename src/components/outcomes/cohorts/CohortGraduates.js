@@ -1,11 +1,27 @@
-
+import { useEffect, useState } from 'react';
+import apiClient from '../../../services/api';
 import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger';
 import CohortGraduatesSearch from './CohortGraduatesSearch'
 import calcDateDifference from '../../../services/dateDifference'
 import CohortGraduatesList from './CohortGraduatesList';
 
 
-function CohortGraduates({activeCohort, activeCohortNoOfGraduates, activeCohortGraduates}) {
+function CohortGraduates({activeCohort}) {
+
+    
+    const [activeCohortGraduates, setActiveCohortGraduates] = useState([]);
+    const [activeCohortNoOfGraduates, setActiveCohortNoOfGraduates] = useState(0);
+
+    useEffect(() => {
+        apiClient.get('http://localhost/sanctum/csrf-cookie')
+        .then(response => {
+            apiClient.get(`http://localhost/api/get_cohort_graduates/${activeCohort.id}`)
+            .then(response => {
+                setActiveCohortNoOfGraduates(response.data.noOfGraduates);
+                setActiveCohortGraduates(response.data.graduates)
+            })
+        });
+    }, [activeCohort]);
 
     // console.log(activeCohort);
     const timeSinceGraduation = calcDateDifference(activeCohort.end_date);

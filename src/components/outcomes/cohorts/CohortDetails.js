@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
 import calcDateDifference from '../../../services/dateDifference'
 
-function CohortDetails({cohort, activeCohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
+function CohortDetails({cohort, activeCohort, selectedCohort}) {
     
     const end_date = new Date(cohort.end_date);
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -10,13 +10,10 @@ function CohortDetails({cohort, activeCohort, selectedCohort, getActiveCohortNoO
     const timeSinceGraduation = calcDateDifference(cohort.end_date);
 
     const [noOfGraduates, setNoOfGraduates] = useState("");
-    const [cohortGraduates, setCohortGraduates] = useState([]);
 
 
     let showCohortDetails = () => {
         selectedCohort(cohort); 
-        getActiveCohortNoOfGraduates(noOfGraduates);
-        getActiveCohortGraduates(cohortGraduates);
     }
 
     useEffect(() => {
@@ -25,7 +22,6 @@ function CohortDetails({cohort, activeCohort, selectedCohort, getActiveCohortNoO
             apiClient.get(`http://localhost/api/get_cohort_graduates/${cohort.id}`)
             .then(response => {
                 setNoOfGraduates(response.data.noOfGraduates);
-                setCohortGraduates(response.data.graduates)
             })
         })
         .catch(e => {

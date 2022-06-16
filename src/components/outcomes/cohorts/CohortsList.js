@@ -4,7 +4,7 @@ import * as Unicons from '@iconscout/react-unicons';
 import { useOutletContext } from "react-router-dom";
 
 
-function CohortsList({cohorts, showAddCohortModal, activeCohort, selectedCohort, getActiveCohortNoOfGraduates, getActiveCohortGraduates}) {
+function CohortsList({cohorts, showAddCohortModal, activeCohort, selectedCohort}) {
 
     const { setShowAddCohortModal } = useOutletContext();
     const [showSortDropdown, setShowSortDropdown] = useState(false)
@@ -73,7 +73,7 @@ function CohortsList({cohorts, showAddCohortModal, activeCohort, selectedCohort,
                 <ul className="flex flex-none -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                     {cohorts.map( cohort => (
                         <li  key={cohort.id} role="presentation">
-                            <CohortDetails cohort={cohort} activeCohort={activeCohort} selectedCohort={selectedCohort} getActiveCohortNoOfGraduates={getActiveCohortNoOfGraduates} getActiveCohortGraduates={getActiveCohortGraduates}   />
+                            <CohortDetails cohort={cohort} activeCohort={activeCohort} selectedCohort={selectedCohort}   />
                         </li>        
                         ))
                     }

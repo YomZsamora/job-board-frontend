@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import * as Unicons from '@iconscout/react-unicons';
 
@@ -12,20 +12,29 @@ const people = [
 ]
 
 function CohortGraduatesSearch({activeCohortGraduates}) {
-
-    const [selected, setSelected] = useState(people[0])
+    
+    const [selected, setSelected] = useState({ id: 1, name: 'Wade Cooper' })
     const [query, setQuery] = useState('')
 
-    const filteredPeople =
+    useEffect(() => {
+        setSelected({ id: 1, first_name: 'Search for', last_name: 'Graduate...' })
+    }, [activeCohortGraduates])
+
+    const filteredActiveCohortGraduates =
         query === ''
-        ? people
-        : people.filter((person) =>
-            person.name
+        ? activeCohortGraduates
+        : activeCohortGraduates.filter((graduate) =>
+            graduate.first_name
+                .toLowerCase()
+                .replace(/\s+/g, '')
+                .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            graduate.last_name
                 .toLowerCase()
                 .replace(/\s+/g, '')
                 .includes(query.toLowerCase().replace(/\s+/g, ''))
         )
 
+        console.log(selected)
     return (
         <div>
             <Combobox value={selected} onChange={setSelected}>
@@ -33,7 +42,7 @@ function CohortGraduatesSearch({activeCohortGraduates}) {
                     <div className="relative w-full cursor-default overflow-hidden rounded-sm bg-white text-left shadow-sm ">
                         <Combobox.Input
                         className="w-full border-none py-1 pl-3 pr-10 text-xs leading-5 text-primary focus:outline-none"
-                        displayValue={(person) => person.name}
+                        displayValue={(person) => person.first_name + ' ' + person.last_name}
                         onChange={(event) => setQuery(event.target.value)}
                         />
                         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2 hover:text-secondary">
@@ -48,33 +57,34 @@ function CohortGraduatesSearch({activeCohortGraduates}) {
                         afterLeave={() => setQuery('')}
                     >
                         <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-sm bg-white py-1 text-xs shadow-lg focus:outline-none sm:text-sm">
-                        {filteredPeople.length === 0 && query !== '' ? (
-                            <div className="relative cursor-default select-none py-2 px-4 text-primary">
-                            Nothing found.
+                        {filteredActiveCohortGraduates.length === 0 && query !== '' ? (
+                            <div className="relative cursor-default select-none py-2 px-4 text-primary text-sm text-alert-danger-dark">
+                            Graduate Not Found.
                             </div>
                         ) : (
-                            filteredPeople.map((person) => (
+                            filteredActiveCohortGraduates.map((graduate) => (
                             <Combobox.Option
-                                key={person.id}
+                                key={graduate.id}
                                 className={({ active }) =>
                                 `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                                     active ? 'bg-primary/5 text-secondary' : 'text-primary'
                                 }`
                                 }
-                                value={person}
+                                value={graduate}
+                                onClick={() => setSelected(graduate)}
                             >
                                 {({ selected, active }) => (
                                 <>
                                     <span
                                     className={`block truncate ${
-                                        selected ? 'text-nunito-semiBold' : 'text-nunito-light'
+                                        selected ? 'text-nunito-semiBold text-secondary' : 'text-nunito-light'
                                     }`}
                                     >
-                                    {person.name}
+                                    {graduate.first_name + ' ' + graduate.last_name}
                                     </span>
                                     {selected ? (
                                     <span
-                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 text-secondary ${
                                         active ? 'text-secondary' : 'text-primary'
                                         }`}
                                     >
