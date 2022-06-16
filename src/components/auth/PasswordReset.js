@@ -57,10 +57,10 @@ function PasswordReset() {
                     </div>
                     <div className="login-title text-center mb-6">
                         <h3 className="text-nunito-bold text-4xl mb-2">Password Reset</h3>
-                        <p className="text-nunito-regular text-xs"><span>Forgot your Password</span></p>
+                        <p className="text-nunito-regular text-sm"><span>Forgot your Password</span></p>
                     </div>
                     <form className="px-7" onSubmit={handleSubmit(onSubmit)}>
-                        <p className="text-xs text-center mb-6">Enter the email address you registered with and wait for recover details to be sent. </p>
+                        <p className="text-sm text-center mb-6">Enter the email address you registered with and wait for recover details to be sent. </p>
                         <div className="mb-4">
                             <input 
                                 {...register("email", { required: 'We need to know your email address!' })}
@@ -76,12 +76,12 @@ function PasswordReset() {
                                 { userDoesntExists ?  <AlertDanger message={error} /> : <p></p> }
                                 { sendResetEmail ?  <AlertSuccess message={error} /> : <p></p> }
                         </div>
-                        <button className="w-full bg-secondary transition duration-150 ease-in-out hover:bg-secondary/50 rounded text-white px-6 py-2 text-xs">
+                        <button className="w-full bg-secondary rounded text-white px-6 py-2 text-xs hover:-translate-y-1 hover:scale-110">
                             { resetPreloader ? <SecondaryPreloader width={15} height={15} /> : "Request a Reset Link" }
                             </button>
                     </form>
                     <div className='flex items-center justify-center'>
-                        <a className="text-xs text-center mt-4" href="/login">Back to Login</a>
+                        <a className="text-sm text-center mt-4 hover:text-secondary" href="/login">Back to Login</a>
                     </div>
                 </div>
             </div>

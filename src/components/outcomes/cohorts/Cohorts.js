@@ -1,29 +1,51 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import apiClient from '../../../services/api';
 import { Helmet } from 'react-helmet';
 import CohortsList from './CohortsList';
+import CohortGraduates from './CohortGraduates';
 
 
-function Cohorts() {
-    console.log("HERE!!!")
+
+function Cohorts({showAddCohort, showBulkUpload}) {
+
+    const [activeCohort, setActiveCohort] = useState([]);
+    const [cohorts, setCohorts] = useState([]);
+    
+    let selectedCohort = cohort => setActiveCohort(cohort);
+    
+    // Fetch All Cohorts
+    useEffect(() => {
+        apiClient.get('http://localhost/sanctum/csrf-cookie')
+        .then(response => {
+            apiClient.get('http://localhost/api/get_cohorts')
+            .then(response => {
+                setCohorts(response.data.cohorts);
+                selectedCohort(response.data.cohorts[0]);
+            })
+        })
+    }, []);
 
     return (
-        <div>
+        <div className="h-full overflow-y-hidden">
             <Helmet>
                 <title>Cohorts | Moringa Job-Board </title>
             </Helmet>
-            
-            <div className="flex flex-wrap">
-                <div className="md:w-3/12">
-                    <CohortsList />
-                </div>
-                <div className="md:w-4/12 p-4"></div>
-                <div className="md:flex-grow shrink p-4">
-                    
-                </div>
+
+            {/* List of Cohorts */}
+            <CohortsList cohorts={cohorts} showAddCohort={showAddCohort} activeCohort={activeCohort} selectedCohort={selectedCohort}  />
+
+            <div className="flex flex-col h-full">
+                 <div className="flex flex-wrap">
+                    <div className="md:w-5/12">
+                        {/* Cohort Graduates Details and Information */}
+                        <CohortGraduates activeCohort={activeCohort} showBulkUpload={showBulkUpload}  />
+                    </div>
+                    <div className="md:flex-1">
+                        {/* General Cohort Stats */}                        
+                    </div>     
+                </div>  
             </div>
-            
-            
         </div>
     )
 }

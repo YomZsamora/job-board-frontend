@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import apiClient from '../../../services/api';
-import ProgressBarDanger from '../../UIElements/progressBars/ProgressBarDanger'
 import calcDateDifference from '../../../services/dateDifference'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function CohortDetails({cohort}) {
+function CohortDetails({cohort, activeCohort, selectedCohort}) {
     
     const end_date = new Date(cohort.end_date);
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -13,12 +11,16 @@ function CohortDetails({cohort}) {
 
     const [noOfGraduates, setNoOfGraduates] = useState("");
 
+
+    let showCohortDetails = () => {
+        selectedCohort(cohort); 
+    }
+
     useEffect(() => {
         apiClient.get('http://localhost/sanctum/csrf-cookie')
         .then(response => {
             apiClient.get(`http://localhost/api/get_cohort_graduates/${cohort.id}`)
             .then(response => {
-                // console.log(response.data);
                 setNoOfGraduates(response.data.noOfGraduates);
             })
         })
@@ -29,25 +31,23 @@ function CohortDetails({cohort}) {
     
 
     return (
-        <div>
-            <div className="hover:bg-primary/5 hover:border-secondary px-4 py-2 cursor-pointer">
-                <div className="flex items-end justify-between">
-                    <p className="text-primary text-nunito-semiBold text-xs">
-                        {cohort.cohort} 
+        <div className="relative">
+            <div onClick={showCohortDetails} className={`${
+                                activeCohort.id === cohort.id ? 'bg-gray-light' : ''
+                                } hover:bg-gray-light px-4 py-2 cursor-pointer w-52`} >
+                <div className="flex items-center justify-between">
+                    <p className="text-primary text-nunito-bold text-sm">
+                        <span className="mr-1">{cohort.cohort}</span> 
                         { cohort.curriculum === 'Legacy' ?
-                            <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold ml-1 px-1.5 py-0.5 rounded">Legacy</span> :
-                            <span className="bg-badge-flatiron-light text-badge-flatiron-dark text-[10px] text-nunito-semiBold ml-1 px-1.5 py-0.5 rounded">Flatiron</span>
+                            <span className="bg-badge-legacy-light text-badge-legacy-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Legacy</span> :
+                            <span className="bg-badge-flatiron-light text-badge-flatiron-dark text-[10px] text-nunito-semiBold px-1.5 py-0.5 rounded">Flatiron</span>
                         }
                     </p>
-                    {/* Ellipsis Here */}
-                    <FontAwesomeIcon className="text-xs hover:text-secondary" icon="ellipsis" />
                 </div>
-                <span className="text-[10px] text-nunito-light text-primary/70">{cohort_end_date} ({timeSinceGraduation})</span>
-                <div className="flex justify-between mb-1 items-end">
-                    <span className="text-primary text-[11px]">{noOfGraduates + ' Graduates'} </span>
-                    <span className="text-alert-danger-dark  text-[10px]">45%</span>
+                <div className="flex flex-col items-start">
+                    <span className={`${noOfGraduates === 0 ? 'text-alert-danger-dark' : 'text-primary'}  text-[11px]`}>{noOfGraduates === 0 ? 'Graduates Not Added' : noOfGraduates + ' Graduates'} </span>
+                    <span className="text-[10px] text-nunito-light text-primary/70">{cohort_end_date} ({timeSinceGraduation})</span>
                 </div>
-                <ProgressBarDanger />
             </div>
         </div>
     )

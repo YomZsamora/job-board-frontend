@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Navbar from '../navigation/Navbar';
 import BulkUploadModal from '../UIElements/modals/BulkUploadModal';
+import AddCohortModal from '../UIElements/modals/AddCohortModal';
 import { Outlet } from "react-router-dom";
 import SideBar from '../navigation/SideBar'
 
 function Outcomes({logout}) {
-    const [show, setShow] = useState(false);
-    let showBulkUpload = () => setShow(!show);
+    const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
+    const [showAddCohortModal, setShowAddCohortModal] = useState(false);
+
+    let showBulkUpload = () => setShowBulkUploadModal(!showBulkUploadModal);
+    let showAddCohort = () => setShowAddCohortModal(!showAddCohortModal)
 
     return (
         <div>
@@ -18,15 +22,16 @@ function Outcomes({logout}) {
             
             <div className="flex flex-row h-screen">
                 <SideBar />
-                <div className="w-full overflow-y-hidden h-screen">
+                <div className="w-full h-screen overflow-y-auto">
                     <Navbar logout={logout} showBulkUpload={showBulkUpload} />
                     {/* Outcomes Main Components */}
-                    <Outlet />
+                    <Outlet context={{ setShowAddCohortModal, setShowBulkUploadModal }}  />
                 </div>
             </div>
             
             {/* Modals */}
-            { show ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null}
+            { showBulkUploadModal ? <BulkUploadModal showBulkUpload={showBulkUpload} /> : null }
+            <AddCohortModal showAddCohort={showAddCohort} showAddCohortModal={showAddCohortModal} />
         </div>
     )
 }

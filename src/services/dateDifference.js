@@ -1,5 +1,6 @@
 
 function calcDateDifference(date) {
+
     let today = new Date()
     let endDate = new Date(date);
     

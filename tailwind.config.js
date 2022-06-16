@@ -1,14 +1,18 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/flowbite/**/*.js"
+    "./node_modules/flowbite/**/*.js",
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
       white: '#ffffff',
       gray: "#F0F0F0",
       'gray-dark': '#6C7583',
+      'gray-light': '#F3F4F5',
       primary: '#101f3c',
       secondary: '#fa510f',
       'primary-light': '#d2dbec',
